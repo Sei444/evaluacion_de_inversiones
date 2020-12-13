@@ -8,6 +8,9 @@ class escenario1_interfaz(QMainWindow):
         super().__init__()
         uic.loadUi("ventanaEsc1.ui", self)
 
+    def fn_guardar(self):
+        self.lineEdit.getText()
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     GUI = escenario1_interfaz()
