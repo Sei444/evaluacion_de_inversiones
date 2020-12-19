@@ -6,7 +6,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.boton_elegir1.clicked.connect(self.abrir_escenario1)
-     
+       
     def abrir_escenario1(self):
        self.ventana_esc1 = VentanaEscenario1()
        self.ventana_esc1.show()
