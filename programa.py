@@ -10,7 +10,6 @@ class VentanaPrincipal(QtWidgets.QMainWindow, Ui_MainWindow):
     def abrir_escenario1(self):
        self.ventana_esc1 = VentanaEscenario1()
        self.ventana_esc1.show()
-       self.hide()
       
     def Escenario2(self):
         pass

@@ -13,7 +13,7 @@ from scipy.stats import norm
 
 from ventanaesc1 import *
 from programa import *
-class  VentanaEscenario1(QtWidgets.QMainWindow,Ui_ventanaEsc1, ):
+class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
     def __init__(self):
         super().__init__()
         #QAbstractTableModel.__init__(self)
@@ -58,10 +58,7 @@ class  VentanaEscenario1(QtWidgets.QMainWindow,Ui_ventanaEsc1, ):
        #self.ventana_principal = QMainWindow()
        #self.uiPrincipal = Ui_MainWindow()
        #self.uiPrincipal.setupUi(self.ventana_principal)
-       self.close()
-       self.atras = VentanaPrincipal()
-       self.atras.show()
-    
+       self.close()    
 
     
 class Distribucion:
