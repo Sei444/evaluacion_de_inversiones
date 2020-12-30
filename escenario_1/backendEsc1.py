@@ -11,7 +11,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.stats import norm
 
-from ventanaesc1 import *
+from escenario_1.ventanaesc1 import *
 from programa import *
 class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
     def __init__(self):

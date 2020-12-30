@@ -1,6 +1,6 @@
 from ventana_principal import *
-from ventanaesc1 import *
-from backendEsc1 import *
+from escenario_1.ventanaesc1 import *
+from escenario_1.backendEsc1 import *
 class VentanaPrincipal(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
