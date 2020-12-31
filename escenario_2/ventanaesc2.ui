@@ -170,7 +170,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_mas_res">
+    <widget class="QLineEdit" name="lineEdit_max_res">
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -433,14 +433,17 @@
    <widget class="QLabel" name="label_22">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>310</x>
       <y>0</y>
-      <width>111</width>
+      <width>311</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;ESCENARIO 2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox_7">
