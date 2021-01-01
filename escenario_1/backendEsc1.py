@@ -5,8 +5,8 @@ import pandas as pd
 import matplotlib
 import plotly.graph_objects as go
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QDialog
-#from PyQt5.Qtcore import QAbstractTableModel , Qt
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QDialog 
+from PyQt5.QtCore import QAbstractTableModel, Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.stats import norm
@@ -31,6 +31,7 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         desviacionE_flujo = int(self.desviacionE_flujo.text())
         media_inv = int(self.media_inv.text())
         desviacionE_inv = int(self.desviacionE_inv.text())
+        global corridas
         corridas = int(self.lineEdit_Ncorridas.text())
         #años =int(self.lineEdit_anios.text()) 
         print("la media es : " , media_flujo , desviacionE_flujo , media_inv ,desviacionE_inv,corridas)
@@ -52,8 +53,16 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
     def click_disNFlujos(self):
         obj_flujosNetos.grafica_distnormal()
     def click_tablaS(self):
-        main.graficar_tablaSimulacion()
-       
+        self.model = pandasModel(tabla)
+        self.view = QTableView()
+        self.view.setModel(self.model)
+        corridas_str = str(corridas)
+        print(corridas_str)
+        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+        print(titulo)
+        self.view.setWindowTitle(titulo)
+        self.view.resize(800, 600)
+        self.view.show()
     def volver_home(self):
        #self.ventana_principal = QMainWindow()
        #self.uiPrincipal = Ui_MainWindow()
@@ -110,40 +119,16 @@ class Inversion():
         aux_tir = np.rint(np.insert(flujos_netos,0,-inversion))
         tir = round((np.irr(aux_tir)*100), 3)
         corrida = np.append(aux_tir, tir, axis=None)
-        print("Calculo la tir")
+        
         return corrida
     def construir_dataFrame(self):
         data = pd.DataFrame(columns=['inversión_inicial', 'ingresos_año1', 'ingresos_año2','ingresos_año3', 'ingresos_año4','ingresos_año5', 'TIR'], index=range(self.corridas))
         #row = Inversion()
         for i in data.index :
             data.iloc[i] = self.calcular_tir()
-            print("funciona!!!")
+        print("funciona!!!")
         return data
-    def graficar_tablaSimulacion(self):
-        
-        tabla2 = tabla.to_numpy()
-        print("Imprimiendo tabla")
-        print(tabla)
-        
-        #primera opcion
-
-        fig, ax =plt.subplots(1,1)
-        column_labels=['inversión_inicial', 'ingresos_año1', 'ingresos_año2','ingresos_año3', 'ingresos_año4','ingresos_año5', 'TIR']
-        ax.axis('tight')
-        ax.axis('off')
-        ax.table(cellText=tabla2,colLabels=column_labels,loc="center")
-        plt.show()
-        #segunda opcion
-        """fig = go.Figure(data=[go.Table(
-            header=dict(values=list(tabla.columns),
-                        fill_color='paleturquoise',
-                        align='left'),
-            cells=dict(values=[tabla.inversión_inicial, tabla.ingresos_año1, tabla.ingresos_año2, tabla.ingresos_año3, tabla.ingresos_año4, tabla.ingresos_año5, tabla.TIR],
-                    fill_color='lavender',
-                    align='left'))
-        ])
-        fig.show()
-        """
+   
   
     def graficar_histrogramaTIR(self):
         #datos
@@ -205,6 +190,29 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Frecuencia acumulada')
         plt.show()
+
+class pandasModel(QAbstractTableModel):
+
+    def __init__(self, data):
+        QAbstractTableModel.__init__(self)
+        self._data = data
+
+    def rowCount(self, parent=None):
+        return self._data.shape[0]
+
+    def columnCount(self, parnet=None):
+        return self._data.shape[1]
+
+    def data(self, index, role=Qt.DisplayRole):
+        if index.isValid():
+            if role == Qt.DisplayRole:
+                return str(self._data.iloc[index.row(), index.column()])
+        return None
+
+    def headerData(self, col, orientation, role):
+        if orientation == Qt.Horizontal and role == Qt.DisplayRole:
+            return self._data.columns[col]
+        return None
 
        
 if __name__ == "__main__":

@@ -13,6 +13,12 @@ class VentanaPrincipal(QtWidgets.QMainWindow, Ui_MainWindow):
     def abrir_escenario2(self):
        self.ventana_esc2 = VentanaEscenario2()
        self.ventana_esc2.show()
+    def closeEvent(self,event):
+        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
+        if pregunta == QMessageBox.Yes: 
+            event.accept()
+        else:
+            event.ignore()
 if __name__ == "__main__":
     app= QtWidgets.QApplication([])
     ventana_p = VentanaPrincipal()
