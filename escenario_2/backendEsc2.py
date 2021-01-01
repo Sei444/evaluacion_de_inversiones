@@ -100,9 +100,25 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
             x = msg.exec_()
         
     def click_tasaInflacion(self):
-        obj_inf.grafica_distTriangular()
+        try:
+            obj_inf.grafica_distTriangular()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados de la tasa de inflacion")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_flujoNeto(self):
-        obj_flujos.grafica_distUniforme()
+        try:
+            obj_flujos.grafica_distUniforme()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados de la tasa de inflacion")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     """def click_tablaS(self):
         main.graficar_tablaSimulacion()"""
        
