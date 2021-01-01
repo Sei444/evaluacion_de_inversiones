@@ -13,6 +13,7 @@ from scipy.stats import norm
 
 from escenario_2.ventanaesc2 import *
 from programa import *
+from escenario_2.backendConclusion import *
 class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def __init__(self):
         super().__init__()
@@ -21,15 +22,14 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         self.pushButton_home.clicked.connect(self.volver_home)
 
         self.pushButton_simular.clicked.connect(self.click_simular)
-        """self.pushButton_conclusion.clicked.connect(self.click_conclusion)
-
-        self.pushButton_vpn.clicked.connect(self.click_histrogramaVPN)
-        """
+        self.pushButton_coclusion.clicked.connect(self.click_conclusion)
+        #self.pushButton_vpn.clicked.connect(self.click_histrogramaVPN)
         self.pushButton_inv.clicked.connect(self.click_inversionInicial)
         self.pushButton_res.clicked.connect(self.click_valorRescate)
         self.pushButton_inf.clicked.connect(self.click_tasaInflacion)
         self.pushButton_neto.clicked.connect(self.click_flujoNeto)
         #self.pushButton_tabla.clicked.connect(self.click_tablaS)
+        self.ventana_conclusion = VentanaConclusion()
 
         
     def click_simular(self):
@@ -121,14 +121,18 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         
     """def click_tablaS(self):
         main.graficar_tablaSimulacion()"""
-       
+    def click_conclusion(self):
+        
+        self.ventana_conclusion.exec_()
+
     def volver_home(self):
        #self.ventana_principal = QMainWindow()
        #self.uiPrincipal = Ui_MainWindow()
        #self.uiPrincipal.setupUi(self.ventana_principal)
+       
        self.close()    
 
-    
+
 class Distribucion:
     def __init__(self):
         self.res =0
