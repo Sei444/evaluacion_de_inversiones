@@ -23,7 +23,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
         self.pushButton_simular.clicked.connect(self.click_simular)
         self.pushButton_coclusion.clicked.connect(self.click_conclusion)
-        #self.pushButton_vpn.clicked.connect(self.click_histrogramaVPN)
+        self.pushButton_vpn.clicked.connect(self.click_histrogramaVPN)
         self.pushButton_inv.clicked.connect(self.click_inversionInicial)
         self.pushButton_res.clicked.connect(self.click_valorRescate)
         self.pushButton_inf.clicked.connect(self.click_tasaInflacion)
@@ -83,6 +83,8 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         x = msg.exec_()
     """def click_histrogramaVPN(self):
         main.graficar_histrogramaTIR()"""
+    def click_histrogramaVPN(self):
+        main.graficar_histrogramaVPN()
     def click_inversionInicial(self):
        try:
             obj_inv.grafica_distTriangular()
@@ -177,16 +179,28 @@ class Uniforme(Distribucion):
         self.flujo5 = flujo5
     def generar_resultado(self):
         #INDICES
-        indices = np.around(np.random.uniform(0,4,5), 0) # Meter DEL - AL, y cuantos datos se desea generar
-        indices = indices.astype(int) #Convierte los valores del arrreglo a enteros
+        indices = np.random.uniform(0,1,5) * 5
+        indices = indices.astype(int)
+        print(indices)
         #FLUJO
         flujo = [self.flujo1, self.flujo2, self.flujo3, self.flujo4, self.flujo5] #Meter los valores que tendra nuestro flujo
-
         #NUEVO FLUJO SEGUN INDICES (ARREGLO NUEVO)
-        flujoNuevo = np.take(flujo,indices)
+        flujoNuevo = np.take(flujo,(indices))
         return flujoNuevo
     def grafica_distUniforme(self):
-        pass
+        #datos
+
+        flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
+        print(flujo_data['valor_de_rescate'])
+        array = np.concatenate( (flujo_data['año_1'].to_numpy(), flujo_data['año_2'].to_numpy(), flujo_data['año_3'].to_numpy(), flujo_data['año_4'].to_numpy(), (flujo_data['año_5'].to_numpy()-flujo_data['valor_de_rescate'].to_numpy())), axis = None)
+        print("el array tir es: ",array)
+
+        #grafico con solucion 1
+        plt.hist(array, bins = 5, orientation='vertical')
+        plt.title('Histograma Flujo Neto')
+        plt.xlabel('valores del Flujo Neto')
+        plt.ylabel('Total repeticiones')
+        plt.show()
 class Inversion():
 
     def __init__(self):
@@ -258,15 +272,10 @@ class Inversion():
   
     def graficar_histrogramaVPN(self):
       # HISTOGRAMA VPN , cambie el nombre corridas por datacorridas
-        dataCorridas.sort_values(by=['VPN'], inplace=True) # ordenar en dataframe de menor a mayor segun el VPN
         vpn_data = dataCorridas['VPN']
-        tabla2 = dataCorridas.to_numpy()
-        array = vpn_data.to_numpy()
-        print(array)
-        fragmentos = np.around(np.linspace(array[0], array[-1], 21), 3 )
-        bins = fragmentos.tolist()
-        print(bins)
-        plt.hist(array, bins = bins, orientation='vertical')
+        np_vpn_data = vpn_data.to_numpy()
+        print(np_vpn_data)
+        plt.hist(np_vpn_data, bins = 20, orientation='vertical')
         plt.title('Histograma VPN')
         plt.xlabel('valores del VPN')
         plt.ylabel('Total repeticiones')

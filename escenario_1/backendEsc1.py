@@ -86,12 +86,11 @@ class Normal(Distribucion):
         res = np.random.normal(self.media, self.desviacion_e,self.cantidad_valor)
         return res
     def grafica_distnormal(self):
-        normal = norm(self.media, self.desviacion_e)
-        x = np.linspace(normal.ppf(0.01),
-                        normal.ppf(0.99), 100)
-        fp = normal.pdf(x) # Función de Probabilidad
-        plt.plot(x, fp)
-        plt.title('Distribución Normal')
+        x_1 = np.linspace(norm(self.media, self.desviacion_e).ppf(0.01),
+                  norm(self.media, self.desviacion_e).ppf(0.99), 10000)
+        FDP_normal = norm(self.media, self.desviacion_e).pdf(x_1) # FDP
+        plt.plot(x_1, FDP_normal, label='FDP nomal')
+        plt.title('Función de Densidad de Probabilidad')
         plt.ylabel('probabilidad')
         plt.xlabel('valores')
         plt.show()
@@ -141,7 +140,7 @@ class Inversion():
         print(bins)
 
         #grafico con solucion 1
-        plt.hist(array, bins = bins, orientation='horizontal')
+        plt.hist(array, bins = bins, orientation='vertical')
         plt.title('Histograma TIR')
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
