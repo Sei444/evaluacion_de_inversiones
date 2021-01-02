@@ -1,6 +1,7 @@
 {
     "python.linting.pylintArgs": [
         "--extension-pkg-whitelist=PyQt5,otherPkg"
-    ]
+    ],
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.9/bin/python3"
 
 }

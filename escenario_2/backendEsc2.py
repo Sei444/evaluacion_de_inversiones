@@ -46,30 +46,34 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         inf_esp = int(self.lineEdit_esp_inf.text())
         inf_max = int(self.lineEdit_max_inf.text())
         #corridas
+        global corridas
         corridas = int(self.lineEdit_corridas.text())
         #flujo neto
         flujo1 = int(self.lineEdit_1_neto.text()) 
         flujo2 = int(self.lineEdit_2_neto.text()) 
         flujo3 = int(self.lineEdit_3_neto.text()) 
         flujo4 = int(self.lineEdit_4_neto.text()) 
-        flujo5 = int(self.lineEdit_5_neto.text()) 
-        print("obteniendo resultados  : " , inv_min ,inv_esp, inv_max , "\n" ,res_min,res_esp,res_max, "\n", "inflacion", inf_min,inf_esp, inf_max)
-        print("flujos:" , flujo1,flujo2,flujo3,flujo4,flujo5, "corridas" , corridas)
+        flujo5 = int(self.lineEdit_5_neto.text())
+        #tasa de descuento
+        global t_descuento
+        t_descuento = int(self.lineEdit_tasadescuento.text())
+    
         self.mostrar_popup()
 
-        #global main 
-        #main= Inversion(media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas)
         #llamada a las distribuciones triangulares
         global obj_inv
         obj_inv = Triangular(inv_min,inv_esp,inv_max)
         global obj_res
-        obj_inv = Triangular(res_min,res_esp,res_max)
+        obj_res = Triangular(res_min,res_esp,res_max)
         global obj_inf
-        obj_inv = Triangular(inf_min,inf_esp,inf_max)
+        obj_inf = Triangular(inf_min,inf_esp,inf_max)
         #llamada a las distribucion uniforme
         global obj_flujos
         obj_flujos = Uniforme(flujo1,flujo2,flujo3,flujo4,flujo5)
-        #print(main.evaluar())
+
+        global main 
+        main = Inversion()
+        main.evaluar()
     
     def mostrar_popup(self):
         msg = QMessageBox()
@@ -152,21 +156,17 @@ class Triangular(Distribucion):
     #resultado para inflacion
     def generar_resInf(self):
         #INFLACION
-        inflacion = 1 - np.around(np.random.triangular(1-minimo, 1-esperado, 1-maximo, 1), 3) #Meter datos Estimacion pesimista - probable - optimista
+        print('inflacion :')
+        inflacion = 100 - (np.around(np.random.triangular(100 - self.minimo, 100 - self.esperado, 100 - self.maximo, 1), 0)) #Meter datos Estimacion pesimista - probable - optimista
         #inflacion = inflacion.astype(int)
-        descuento = np.around(0.25+inflacion+(0.25*inflacion), 3)
+        print(inflacion)
+        return inflacion
     def grafica_distTriangular(self):
-        """normal = norm(self.media, self.desviacion_e)
-        x = np.linspace(normal.ppf(0.01),
-                        normal.ppf(0.99), 100)
-        fp = normal.pdf(x) # Función de Probabilidad
-        plt.plot(x, fp)
-        plt.title('Distribución Triangular')
-        plt.ylabel('probabilidad')
-        plt.xlabel('valores')
-        plt.show()"""
+        x = np.array([self.minimo, self.esperado ,self.maximo])
+        y = np.array([0, 2/(self.maximo - self.minimo) ,0])
+        plt.triplot(x,y)
+        plt.show()
         print("mostrar grafica distri")
-        pass
 class Uniforme(Distribucion):
     def __init__(self, flujo1, flujo2,flujo3,flujo4,flujo5):
         Distribucion.__init__(self)
@@ -184,34 +184,50 @@ class Uniforme(Distribucion):
 
         #NUEVO FLUJO SEGUN INDICES (ARREGLO NUEVO)
         flujoNuevo = np.take(flujo,indices)
+        return flujoNuevo
     def grafica_distUniforme(self):
         pass
 class Inversion():
 
-    def __init__(self,media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas):
-        self.tir = 0
-        self.media_flujo =media_flujo
-        self.desviacionE_flujo = desviacionE_flujo
-        self.media_inv = media_inv
-        self.desviacionE_inv = desviacionE_inv
-        self.corridas = corridas
-        self.data = pd.DataFrame()
+    def __init__(self):
+        pass
        # print("media flujo es:" , self.media_flujo, self.desviacionE_flujo)
         #self.figure = plt.figure(figsize=(10,5))
        # self.canvas = FigureCanvas(self.figure)
     def evaluar(self):
+        print('EVALUAR')
         global dataCorridas 
-        dataCorridas= self.construir_dataFrame()
+        dataCorridas = self.construir_dataFrame()
     #Que tendria que calcular?
-    def calcular_VPN(self):
-        
-        pass
+    def calcular_VPN(self, descuento, arregloFinal):
+        return np.npv(descuento,arregloFinal)
+    def arreglo(self):
+        inv = obj_inv.generar_resultado()
+        print(inv)
+        flujo = obj_flujos.generar_resultado()
+        print(flujo)
+        rescate = obj_res.generar_resultado()
+        print(rescate)
+        inflacion = obj_inf.generar_resInf()/100
+        print(inflacion)
+        descuento = np.around(t_descuento/100 + inflacion+(t_descuento/100 * inflacion), 8)
+        print(descuento)
+        flujo[4] = np.take(flujo,4) + rescate
+        arregloFinal = np.concatenate((inv,flujo),axis=0)
+        print(arregloFinal)
+        vpn =  self.calcular_VPN(descuento,arregloFinal)
+        print(vpn)
+        res = np.concatenate((arregloFinal, vpn, inflacion, rescate, descuento), axis = None)
+        print(res)
+        return res    
     def construir_dataFrame(self):
+        print('Hola construir dataframe')
         #Corridas
         #corridas construye un dataframe de tamaño n difinido por --> range(n)
-        data = pd.DataFrame(columns=  ["inv_ini", 'año_1', 'año_2', 'año_3', 'año_4', 'año_5', 'VPN', 'inflacion'], index = range(self.corridas))
+        data = pd.DataFrame(columns=  ['inv_ini', 'año_1', 'año_2', 'año_3', 'año_4', 'año_5', 'VPN', 'inflacion', 'valor_de_rescate', 'tasa_de_descuento'], index = range(corridas))
         for i in data.index :
-            data.iloc[i] = arreglo()
+            data.iloc[i] = self.arreglo()
+            print(data.iloc[i])
         print(data)
         return data
     """def graficar_tablaSimulacion(self):

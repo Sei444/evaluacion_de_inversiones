@@ -158,7 +158,7 @@
      <string>SIMULAR</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pushButton_conclusion">
     <property name="geometry">
      <rect>
       <x>790</x>
