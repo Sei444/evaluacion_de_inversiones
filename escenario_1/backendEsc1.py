@@ -10,21 +10,23 @@ from PyQt5.QtCore import QAbstractTableModel, Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.stats import norm
-
 from escenario_1.ventanaesc1 import *
 from programa import *
+from escenario_1.backendConclusion import *
 class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
     def __init__(self):
         super().__init__()
         #QAbstractTableModel.__init__(self)
         self.setupUi(self)
         self.boton_simular.clicked.connect(self.click_simular)
+        self.pushButton_conclusion.clicked.connect(self.click_conclusion)
         self.boton_home.clicked.connect(self.volver_home)
         self.pushButton_histoTIR.clicked.connect(self.click_histrogramaTIR)
         self.pushButton_distAcuTIR.clicked.connect(self.click_distAcumTIR)
         self.pushButton_distNInvIni.clicked.connect(self.click_distNInvInicial)
         self.pushButton_distNFlujoNeto.clicked.connect(self.click_disNFlujos)
         self.pushButton_tablaS.clicked.connect(self.click_tablaS)
+        self.ventanaEsc1_conclusion = VentanaConclusion()
         
     def click_simular(self):
         media_flujo = int(self.media_flujo.text())
@@ -43,7 +45,8 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         global obj_flujosNetos
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
         print(main.evaluar())
-        
+    def click_conclusion(self):
+        self.ventanaEsc1_conclusion.exec_()
     def click_histrogramaTIR(self):
         main.graficar_histrogramaTIR()
     def click_distAcumTIR(self):
@@ -145,7 +148,6 @@ class Inversion():
         plt.title('Histograma TIR')
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
-        plt.show()
         plt.show()
         #grafico con solucion 2
         """figure = Figure()
