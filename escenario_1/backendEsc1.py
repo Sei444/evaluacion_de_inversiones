@@ -33,16 +33,14 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         desviacionE_inv = int(self.desviacionE_inv.text())
         global corridas
         corridas = int(self.lineEdit_Ncorridas.text())
-        #años =int(self.lineEdit_anios.text()) 
-        print("la media es : " , media_flujo , desviacionE_flujo , media_inv ,desviacionE_inv,corridas)
-        
+
         global main 
         main= Inversion(media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas)
         global obj_inv
         obj_inv = Normal(media_inv,desviacionE_inv)
         global obj_flujosNetos
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
-        print(main.evaluar())
+        main.evaluar()
         
     def click_histrogramaTIR(self):
         main.graficar_histrogramaTIR()
@@ -61,15 +59,10 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
         print(titulo)
         self.view.setWindowTitle(titulo)
-        self.view.resize(800, 600)
+        self.view.resize(700, 600)
         self.view.show()
     def volver_home(self):
-       #self.ventana_principal = QMainWindow()
-       #self.uiPrincipal = Ui_MainWindow()
-       #self.uiPrincipal.setupUi(self.ventana_principal)
-       self.close()    
-
-    
+       self.close()        
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -104,9 +97,6 @@ class Inversion():
         self.desviacionE_inv = desviacionE_inv
         self.corridas = corridas
         self.data = pd.DataFrame()
-       # print("media flujo es:" , self.media_flujo, self.desviacionE_flujo)
-        #self.figure = plt.figure(figsize=(10,5))
-       # self.canvas = FigureCanvas(self.figure)
     def evaluar(self):
         global tabla 
         tabla= self.construir_dataFrame()
@@ -125,20 +115,15 @@ class Inversion():
         #row = Inversion()
         for i in data.index :
             data.iloc[i] = self.calcular_tir()
-        print("funciona!!!")
         return data
    
-  
     def graficar_histrogramaTIR(self):
         #datos
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
         array = tir_data.to_numpy()
-        print("el array tir es: ",array)
         fragmentos = np.around(np.linspace(array[0], array[-1], 21), 3 )
         bins = fragmentos.tolist()
-        print(bins)
-
         #grafico con solucion 1
         plt.hist(array, bins = bins, orientation='vertical')
         plt.title('Histograma TIR')
@@ -146,22 +131,7 @@ class Inversion():
         plt.ylabel('Total repeticiones')
         plt.show()
         plt.show()
-        #grafico con solucion 2
-        """figure = Figure()
-        scene = QtWidgets.QGraphicsScene()
-        view = QtWidgets.QGraphicsView(scene)
         
-        axes = figure.gca()
-        axes.hist(array, bins = bins, orientation='horizontal')
-        axes.set_title('Histograma TIR')
-        #axes.xlabel('valores del TIR')
-        #axes.ylabel('Total repeticiones')
-        axes.grid(True)
-        canvas = FigureCanvas(figure)
-        proxy_widget = scene.addWidget(canvas)
-        view.resize(640,480)
-        view.show()
-        """
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
@@ -182,7 +152,6 @@ class Inversion():
 
         tir_acu["fracción"] = round((pd.cut(array, bins= intervals).value_counts())/(self.corridas),3)
         tir_acu["fracción acumulada"] = tir_acu["fracción"].cumsum()
-        print(tir_acu)
         a = np.arange(tir_acu.shape[0])
         plt.plot(tir_acu.index.mid, tir_acu['fracción acumulada'])
         plt.title('Frecuencia acumulada TIR')
