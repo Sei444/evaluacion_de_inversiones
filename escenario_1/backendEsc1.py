@@ -52,9 +52,9 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
     def click_distAcumTIR(self):
         main.graficar_distAcumuladaTIR()
     def click_distNInvInicial(self):
-        obj_inv.grafica_distnormal()
+        obj_inv.grafica_distnormal_Inv()
     def click_disNFlujos(self):
-        obj_flujosNetos.grafica_distnormal()
+        obj_flujosNetos.grafica_distnormal_Flujo()
     def click_tablaS(self):
         self.model = pandasModel(tabla)
         self.view = QTableView()
@@ -88,7 +88,7 @@ class Normal(Distribucion):
     def generar_resultado(self):
         res = np.random.normal(self.media, self.desviacion_e,self.cantidad_valor)
         return res
-    def grafica_distnormal(self):
+    def grafica_distnormal_Inv(self):
         normal = norm(self.media, self.desviacion_e)
         x = np.linspace(normal.ppf(0.01),
                         normal.ppf(0.99), 100)
@@ -142,7 +142,7 @@ class Inversion():
         for i in data.index :
             data.iloc[i] = self.calcular_tir()
         print("funciona!!!")
-        data.to_excel (r'./escenario_1/export_dataframe.xlsx', index = False)
+        data.to_excel(r'./escenario_1/export_dataframe.xlsx', index = False)
         return data
    
   
@@ -162,7 +162,7 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
         plt.show()
-
+        plt.savefig("./escenario_1/imagen1.jpg")
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']

@@ -1,12 +1,12 @@
-from win32com import client
+from win32com.client import Dispatch
 import win32api
 class Convertidor():
     def tablaPdf(self):
-        input_file = r'C:\Users\alex_\Desktop\Taller de Simu\Programa\Proyecto\evaluacion_de_inversiones\escenario_1\export_dataframe.xlsx'
+        input_file = r'D:\UMSS\Semestre-Final\Taller de simu\Software\evaluacion_de_inversiones\escenario_1\export_dataframe.xlsx'
         #give your file name with valid path 
-        output_file = r'C:\Users\alex_\Desktop\Taller de Simu\Programa\Proyecto\evaluacion_de_inversiones\escenario_1\Reporte2.pdf'
+        output_file = r'D:\UMSS\Semestre-Final\Taller de simu\Software\evaluacion_de_inversiones\escenario_1\Reporte2.pdf'
         #give valid output file name and path
-        app = client.DispatchEx("Excel.Application")
+        app = Dispatch("Excel.Application")
         app.Interactive = False
         app.Visible = False
         Workbook = app.Workbooks.Open(input_file)
@@ -17,6 +17,4 @@ class Convertidor():
             print(str(e))
         finally:
             Workbook.Close()
-            app.Exit()
-obj_convertidor=Convertidor()
-obj_convertidor.tablaPdf()
+            app.Quit()

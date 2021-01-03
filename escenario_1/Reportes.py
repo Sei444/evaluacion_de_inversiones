@@ -37,7 +37,7 @@ class Reportes():
         #//
         c.setFont('Helvetica', 30)
         c.drawString(30,760,"Grafico de la Distribucion Acumulada TIR")
-        c.drawImage('./escenario_1/imagen1.jpg', 10, 175, 600, 500)
+        c.drawImage('./escenario_1/imagen2.jpg', 10, 175, 600, 500)
         c.showPage()
         #//
         c.setFont('Helvetica', 30)

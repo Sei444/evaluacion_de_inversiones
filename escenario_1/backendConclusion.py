@@ -13,19 +13,20 @@ from scipy.stats import norm
 from programa import *
 from escenario_1.conclusion import *
 from escenario_1.Reportes import *
-#from escenario_1.convertidor import *
+from escenario_1.convertidor import *
+
 class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion_esc1 ):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.pushButton_descargarReporte.clicked.connect(self.click_Descargar)
         self.obj_reportes=Reportes()
-        #self.obj_convertidor=Convertidor()
+        self.obj_convertidor=Convertidor()
     
     def click_Descargar(self):
         print("Entro al boton")
         self.obj_reportes.crearCaratula()
-        #'''self.obj_convertidor.tablaPdf()'''
+        self.obj_convertidor.tablaPdf()
         self.obj_reportes.reporteGraficos()
         self.obj_reportes.reporteFinal()
         self.mostrar_popup()
