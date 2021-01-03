@@ -167,6 +167,7 @@ class Triangular(Distribucion):
         plt.triplot(x,y)
         plt.show()
         print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen2.jpg")
 class Uniforme(Distribucion):
     def __init__(self, flujo1, flujo2,flujo3,flujo4,flujo5):
         Distribucion.__init__(self)
@@ -271,7 +272,7 @@ class Inversion():
         plt.xlabel('valores del VPN')
         plt.ylabel('Total repeticiones')
         plt.show()
-     
+        plt.savefig("./escenario_2/imagen1.jpg")
 
        
 if __name__ == "__main__":
