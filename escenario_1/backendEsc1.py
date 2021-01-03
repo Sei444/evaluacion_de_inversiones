@@ -98,6 +98,18 @@ class Normal(Distribucion):
         plt.ylabel('probabilidad')
         plt.xlabel('valores')
         plt.show()
+        plt.savefig("./escenario_1/imagen3.jpg")
+    def grafica_distnormal_Flujo(self):
+        normal = norm(self.media, self.desviacion_e)
+        x = np.linspace(normal.ppf(0.01),
+                        normal.ppf(0.99), 100)
+        fp = normal.pdf(x) # Función de Probabilidad
+        plt.plot(x, fp)
+        plt.title('Distribución Normal')
+        plt.ylabel('probabilidad')
+        plt.xlabel('valores')
+        plt.show()
+        plt.savefig("./escenario_1/imagen4.jpg")
 class Inversion():
 
     def __init__(self,media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas):
@@ -130,6 +142,7 @@ class Inversion():
         for i in data.index :
             data.iloc[i] = self.calcular_tir()
         print("funciona!!!")
+        data.to_excel (r'./escenario_1/export_dataframe.xlsx', index = False)
         return data
    
   
@@ -149,22 +162,7 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
         plt.show()
-        #grafico con solucion 2
-        """figure = Figure()
-        scene = QtWidgets.QGraphicsScene()
-        view = QtWidgets.QGraphicsView(scene)
-        
-        axes = figure.gca()
-        axes.hist(array, bins = bins, orientation='horizontal')
-        axes.set_title('Histograma TIR')
-        #axes.xlabel('valores del TIR')
-        #axes.ylabel('Total repeticiones')
-        axes.grid(True)
-        canvas = FigureCanvas(figure)
-        proxy_widget = scene.addWidget(canvas)
-        view.resize(640,480)
-        view.show()
-        """
+
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
@@ -192,6 +190,7 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Frecuencia acumulada')
         plt.show()
+        plt.savefig("./escenario_1/imagen2.jpg")
 
 class pandasModel(QAbstractTableModel):
 
@@ -224,3 +223,4 @@ if __name__ == "__main__":
     ventana_esc1.show()
     
     app.exec_()
+    
