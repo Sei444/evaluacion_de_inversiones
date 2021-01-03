@@ -29,6 +29,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         self.pushButton_inf.clicked.connect(self.click_tasaInflacion)
         self.pushButton_neto.clicked.connect(self.click_flujoNeto)
         self.pushButton_tabla.clicked.connect(self.click_tablaS)
+        self.pushButton_tabla2.clicked.connect(self.click_tablaS2)
         self.ventana_conclusion = VentanaConclusion()
 
         
@@ -131,6 +132,20 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def click_tablaS(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
         self.model = pandasModel(dataCorridas)
+        self.view = QTableView()
+        self.view.setModel(self.model)
+        corridas_str = str(corridas)
+        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+        self.view.setWindowTitle(titulo)
+        self.view.resize(1000, 600)
+        self.view.show()
+    def click_tablaS2(self):
+        #ventana emergente con tabla de los datos DATAFRAME corridas
+        flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
+        flujo_data[4]= flujo_data['año_5'] - flujo_data['valor_de_rescate']
+        flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
+        flujo_data = flujo_data * 100 / 40
+        self.model = pandasModel(flujo_data)
         self.view = QTableView()
         self.view.setModel(self.model)
         corridas_str = str(corridas)
