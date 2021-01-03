@@ -46,7 +46,7 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
         print(main.evaluar())
     def click_conclusion(self):
-        self.ventanaEsc1_conclusion.exec_()
+        self.ventanaEsc1_conclusion.exec_()  
     def click_histrogramaTIR(self):
         main.graficar_histrogramaTIR()
     def click_distAcumTIR(self):
@@ -162,27 +162,8 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
         plt.show()
-<<<<<<< HEAD
         plt.savefig("./escenario_1/imagen1.jpg")
     
-=======
-        #grafico con solucion 2
-        """figure = Figure()
-        scene = QtWidgets.QGraphicsScene()
-        view = QtWidgets.QGraphicsView(scene)
-        
-        axes = figure.gca()
-        axes.hist(array, bins = bins, orientation='horizontal')
-        axes.set_title('Histograma TIR')
-        #axes.xlabel('valores del TIR')
-        #axes.ylabel('Total repeticiones')
-        axes.grid(True)
-        canvas = FigureCanvas(figure)
-        proxy_widget = scene.addWidget(canvas)
-        view.resize(640,480)
-        view.show()
-        """
->>>>>>> 432e9504d956785e62a75a68536add7d2b78468f
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
@@ -243,3 +224,4 @@ if __name__ == "__main__":
     ventana_esc1.show()
     
     app.exec_()
+    
