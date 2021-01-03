@@ -159,6 +159,9 @@ class Inversion():
         plt.ylabel('Frecuencia acumulada')
         plt.show()
 
+    def probabilidad():
+        pass
+
 class pandasModel(QAbstractTableModel):
 
     def __init__(self, data):
