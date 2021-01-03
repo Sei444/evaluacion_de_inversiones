@@ -10,15 +10,16 @@ from PyQt5.QtCore import QAbstractTableModel, Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.stats import norm
-
 from escenario_1.ventanaesc1 import *
 from programa import *
+from escenario_1.backendConclusion import *
 class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
     def __init__(self):
         super().__init__()
         #QAbstractTableModel.__init__(self)
         self.setupUi(self)
         self.boton_simular.clicked.connect(self.click_simular)
+        self.pushButton_conclusion.clicked.connect(self.click_conclusion)
         self.boton_home.clicked.connect(self.volver_home)
         self.pushButton_histoTIR.clicked.connect(self.click_histrogramaTIR)
         self.pushButton_distAcuTIR.clicked.connect(self.click_distAcumTIR)
@@ -33,6 +34,8 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         desviacionE_inv = int(self.desviacionE_inv.text())
         global corridas
         corridas = int(self.lineEdit_Ncorridas.text())
+        global trema
+        trema = int(self.lineEdit_TREMA.text())
 
         global main 
         main= Inversion(media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas)
@@ -40,8 +43,13 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         obj_inv = Normal(media_inv,desviacionE_inv)
         global obj_flujosNetos
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
-        main.evaluar()
-        
+        global text_conclusion
+        text_conclusion = main.evaluar()
+    def click_conclusion(self):
+
+        self.ventanaEsc1_conclusion = VentanaConclusion()
+        self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
+        self.ventanaEsc1_conclusion.exec_()
     def click_histrogramaTIR(self):
         main.graficar_histrogramaTIR()
     def click_distAcumTIR(self):
@@ -75,6 +83,7 @@ class Normal(Distribucion):
         self.desviacion_e = desviacion_e
         self.cantidad_valor = cantidad_valor
 
+
     def generar_resultado(self):
         res = np.random.normal(self.media, self.desviacion_e,self.cantidad_valor)
         return res
@@ -100,6 +109,8 @@ class Inversion():
     def evaluar(self):
         global tabla 
         tabla= self.construir_dataFrame()
+        conclusion = self.probabilidad()
+        return conclusion
     def calcular_tir(self):
         objt_inv= Normal(self.media_inv,self.desviacionE_inv,1)
         objt_flujos = Normal(self.media_flujo,self.desviacionE_flujo,5)
@@ -130,7 +141,6 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
         plt.show()
-        plt.show()
         
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
@@ -159,8 +169,18 @@ class Inversion():
         plt.ylabel('Frecuencia acumulada')
         plt.show()
 
-    def probabilidad():
-        pass
+    def probabilidad(self):
+        p_tir = tabla['TIR'].to_numpy()
+        may_trema = p_tir[p_tir > trema]
+        print(may_trema)
+        porcentaje = len(may_trema) * 100 / corridas
+        str_procentaje = str(porcentaje)
+        print(porcentaje)
+        if porcentaje >= 90:
+            res = 'Los parametros indican que la inversión puede ser aceptada, superando un '+ str_procentaje + '% de exito'
+        else:
+            res = 'Los parametros indican que la inversión debe ser rechazada, dado que la probalidad de exito no supera el 90%, siendo la probalidad de exito solo  '+str_procentaje+'% '
+        return res
 
 class pandasModel(QAbstractTableModel):
 
