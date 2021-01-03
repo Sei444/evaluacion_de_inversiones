@@ -7,7 +7,7 @@ from PyPDF2 import PdfFileMerger
 import os
 class Reportes():
     def crearCaratula(self):
-        c = canvas.Canvas("./escenario_1/"+'Reporte1.pdf')
+        c = canvas.Canvas("./escenario_1/Report/Reportes/"+'Reporte1.pdf')
         c.setFont('Helvetica', 20)
         c.drawString(140,760,"Universidad Mayor de San Simón")
         c.setFont('Helvetica-Oblique', 20)
@@ -22,7 +22,7 @@ class Reportes():
         c.save()
     def reporteGraficos(self):
         # abrimos el pdf 
-        c = canvas.Canvas("./escenario_1/"+'Reporte3.pdf')
+        c = canvas.Canvas("./escenario_1/Report/Reportes/"+'Reporte3.pdf')
         #Fuente y el tamaño = ?
         c.setFont('Helvetica-Oblique', 50)
         # Dibujamos texto: (X,Y,Texto)
@@ -61,7 +61,7 @@ class Reportes():
         c.drawText(textobject)
         c.save()
     def reporteFinal(self):
-        loc = "./escenario_1/"
+        loc = "./escenario_1/Report/Reportes/"
         pdfs = [loc+archivo for archivo in os.listdir(loc) if archivo.endswith(".pdf")]
         nombre_archivo_salida = "ReporteFinal.pdf"
         fusionador = PdfFileMerger()
