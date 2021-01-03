@@ -30,9 +30,9 @@ class Ui_Conclusion(object):
         self.pushButton = QtWidgets.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(30, 20, 75, 23))
         self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(330, 380, 111, 31))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_descargarReporte = QtWidgets.QPushButton(Dialog)
+        self.pushButton_descargarReporte.setGeometry(QtCore.QRect(330, 380, 111, 31))
+        self.pushButton_descargarReporte.setObjectName("pushButton_descargarReporte")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -42,7 +42,7 @@ class Ui_Conclusion(object):
         Dialog.setWindowTitle(_translate("Dialog", "Conclusion"))
         self.label.setText(_translate("Dialog", "Conclusion de la evaluación"))
         self.pushButton.setText(_translate("Dialog", "Atras"))
-        self.pushButton_2.setText(_translate("Dialog", "Descargar Reporte"))
+        self.pushButton_descargarReporte.setText(_translate("Dialog", "Descargar Reporte"))
 
 
 if __name__ == "__main__":
