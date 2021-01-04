@@ -536,7 +536,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Triangular: Invirsión inicial</string>
+      <string>Distribucion Triangular: Inversión inicial</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_res">

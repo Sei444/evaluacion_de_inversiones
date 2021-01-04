@@ -10,7 +10,6 @@ from PyQt5.QtCore import QAbstractTableModel, Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.stats import norm
-
 from escenario_2.ventanaesc2 import *
 from programa import *
 from escenario_2.backendConclusion import *
@@ -74,7 +73,12 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
         global main 
         main = Inversion()
-        main.evaluar()
+        global text_conclusion
+        text_conclusion = main.evaluar()
+    def click_conclusion(self):
+        self.ventanaEsc2_conclusion = VentanaConclusion()
+        self.ventanaEsc2_conclusion.mostrar_conclusion(text_conclusion)
+        self.ventanaEsc2_conclusion.exec_()
     def mostrar_popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Mensaje")
@@ -105,7 +109,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         
     def click_tasaInflacion(self):
         try:
-            obj_inf.grafica_distTriangular()
+            obj_inf.grafica_distTriangular_inf()
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -123,15 +127,16 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
     def click_conclusion(self):
-        
-        self.ventana_conclusion.exec_()
-
+        self.ventanaEsc1_conclusion = VentanaConclusion()
+        self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
+        self.ventanaEsc1_conclusion.exec_()
     def volver_home(self):
        #cerrar ventana 
        self.close()
     def click_tablaS(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
-        self.model = pandasModel(dataCorridas)
+        flujo = dataCorridas.iloc[:,[1,2,3,4,5,6,7]]
+        self.model = pandasModel(flujo)
         self.view = QTableView()
         self.view.setModel(self.model)
         corridas_str = str(corridas)
@@ -142,14 +147,15 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def click_tablaS2(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
         flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
-        flujo_data[4]= flujo_data['año_5'] - flujo_data['valor_de_rescate']
+        flujo_data['año_5']= flujo_data['año_5'] - flujo_data['valor_de_rescate']
         flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
+        print(flujo_data)
         flujo_data = flujo_data * 100 / 40
         self.model = pandasModel(flujo_data)
         self.view = QTableView()
         self.view.setModel(self.model)
         corridas_str = str(corridas)
-        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+        titulo = "Tabla: Resultado flujo neto antes de impuestos"
         self.view.setWindowTitle(titulo)
         self.view.resize(1000, 600)
         self.view.show()
@@ -177,6 +183,11 @@ class Triangular(Distribucion):
     def grafica_distTriangular(self):
         x = np.array([self.minimo, self.esperado ,self.maximo])
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
+        plt.triplot(x,y)
+        plt.show()
+    def grafica_distTriangular_inf(self):
+        x = np.array([self.maximo, self.esperado ,self.minimo])
+        y = np.array([0, 2/(self.minimo - self.maximo) ,0])
         plt.triplot(x,y)
         plt.show()
 class Uniforme(Distribucion):
@@ -214,6 +225,8 @@ class Inversion():
     def evaluar(self):
         global dataCorridas 
         dataCorridas = self.construir_dataFrame()
+        conclusion = self.probabilidad()
+        return conclusion
     def calcular_VPN(self, descuento, arregloFinal):
         return np.npv(descuento,arregloFinal)
     def arreglo(self):
@@ -242,6 +255,18 @@ class Inversion():
         plt.xlabel('valores del VPN')
         plt.ylabel('Total repeticiones')
         plt.show()
+    def probabilidad(self):
+        p_vpn = dataCorridas['VPN'].to_numpy()
+        may_01 = p_vpn[p_vpn > 0.1]
+        print(may_01)
+        porcentaje = len(may_01) * 100 / corridas
+        str_procentaje = str(porcentaje)
+        print(porcentaje)
+        if porcentaje >= 90:
+            res = 'Los parametros indican que la inversión puede ser aceptada, superando un '+ str_procentaje + '% de exito'
+        else:
+            res = 'Los parametros indican que la inversión debe ser rechazada, dado que la probalidad de exito no supera el 90%, siendo la probalidad de exito solo  '+str_procentaje+'% '
+        return res
 
 class pandasModel(QAbstractTableModel):
 

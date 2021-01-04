@@ -16,12 +16,8 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion ):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
-
-        
-    
-
-       
+    def mostrar_conclusion(self, conclusion):
+        self.textBrowser.setText(conclusion)
 if __name__ == "__main__":
 
     app= QtWidgets.QApplication([])
