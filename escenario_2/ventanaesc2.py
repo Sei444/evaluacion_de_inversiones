@@ -224,7 +224,7 @@ class Ui_Escenario2(object):
         self.label_22.setText(_translate("Escenario2", "<html><head/><body><p><span style=\" font-size:16pt; font-weight:700;\">ESCENARIO 2</span></p></body></html>"))
         self.groupBox_7.setTitle(_translate("Escenario2", "Graficos"))
         self.pushButton_vpn.setText(_translate("Escenario2", "Histograma VPN"))
-        self.pushButton_inv.setText(_translate("Escenario2", "Distribucion Triangular: Invirsión inicial"))
+        self.pushButton_inv.setText(_translate("Escenario2", "Distribucion Triangular: Inversión inicial"))
         self.pushButton_res.setText(_translate("Escenario2", "Distribucion Triangular: Valor de rescate"))
         self.pushButton_neto.setText(_translate("Escenario2", "Distribucion Uniforme: Flujo neto"))
         self.pushButton_inf.setText(_translate("Escenario2", "Distribucion Triangular: Inflación"))
