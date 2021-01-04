@@ -86,13 +86,14 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
         self.view.show()
     def volver_home(self):
        self.close()
-    def closeEvent(self,event):
+
+    """def closeEvent(self,event):
         pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
         if pregunta == QMessageBox.Yes: 
             event.accept()
-            QApplication.quit()
+            
         else:
-            event.ignore()        
+            event.ignore()"""     
 class Distribucion:
     def __init__(self):
         self.res =0

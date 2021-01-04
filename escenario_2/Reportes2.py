@@ -5,7 +5,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from PyPDF2 import PdfFileMerger
 import os
-class Reportes():
+class Reportes2():
     def crearCaratula(self):
         c = canvas.Canvas("./escenario_2/Report/Reportes/"+'Reporte1.pdf')
         c.setFont('Helvetica', 20)
@@ -32,7 +32,7 @@ class Reportes():
         # Dibujamos texto: (X,Y,Texto)
         c.drawString(125,760,"Grafico del Histograma VPN")
         # Dibujamos una imagen (IMAGEN, X,Y, WIDTH, HEIGH)
-        c.drawImage('./escenario_2/imagen2.jpg', 10, 175, 600, 500)
+        c.drawImage('./escenario_2/imagen1.jpg', 10, 175, 600, 500)
         c.showPage()
         #//
         c.setFont('Helvetica', 30)
@@ -42,17 +42,17 @@ class Reportes():
         #//
         c.setFont('Helvetica', 30)
         c.drawString(125,760,"Grafico del Valor de Rescate")
-        c.drawImage('./escenario_2/imagen2.jpg', 10, 175, 600, 500)
+        c.drawImage('./escenario_2/imagen3.jpg', 10, 175, 600, 500)
         c.showPage()
         #//
         c.setFont('Helvetica', 30)
         c.drawString(150,760,"Grafico de la Inflacion")
-        c.drawImage('./escenario_2/imagen2.jpg', 10, 175, 600, 500)
+        c.drawImage('./escenario_2/imagen4.jpg', 10, 175, 600, 500)
         c.showPage()
         #//
         c.setFont('Helvetica', 30)
         c.drawString(160,760,"Grafico del Flujo Neto")
-        c.drawImage('./escenario_2/imagen2.jpg', 10, 175, 600, 500)
+        c.drawImage('./escenario_2/imagen5.jpg', 10, 175, 600, 500)
         c.showPage()
         #Conclusion
         c.setFont('Helvetica-Oblique', 50)

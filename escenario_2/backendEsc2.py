@@ -13,7 +13,7 @@ from scipy.stats import norm
 
 from escenario_2.ventanaesc2 import *
 from programa import *
-from escenario_2.backendConclusion import *
+from escenario_2.backendConclusion2 import *
 class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def __init__(self):
         super().__init__()
@@ -86,7 +86,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         main.graficar_histrogramaVPN()
     def click_inversionInicial(self):
        try:
-            obj_inv.grafica_distTriangular()
+            obj_inv.grafica_distTriangular_Inv()
        except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -96,7 +96,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
     def click_valorRescate(self):
         try:
-            obj_res.grafica_distTriangular()
+            obj_res.grafica_distTriangular_Res()
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -106,7 +106,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         
     def click_tasaInflacion(self):
         try:
-            obj_inf.grafica_distTriangular()
+            obj_inf.grafica_distTriangular_Inf()
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -187,13 +187,28 @@ class Triangular(Distribucion):
         #INFLACION
         inflacion = 100 - (np.around(np.random.triangular(100 - self.minimo, 100 - self.esperado, 100 - self.maximo, 1), 0)) #Meter datos Estimacion pesimista - probable - optimista
         return inflacion
-    def grafica_distTriangular(self):
+    def grafica_distTriangular_Inv(self):
         x = np.array([self.minimo, self.esperado ,self.maximo])
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
         plt.triplot(x,y)
         plt.show()
         print("mostrar grafica distri")
         plt.savefig("./escenario_2/imagen2.jpg")
+    def grafica_distTriangular_Res(self):
+        x = np.array([self.minimo, self.esperado ,self.maximo])
+        y = np.array([0, 2/(self.maximo - self.minimo) ,0])
+        plt.triplot(x,y)
+        plt.show()
+        print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen3.jpg")
+    def grafica_distTriangular_Inf(self):
+        x = np.array([self.minimo, self.esperado ,self.maximo])
+        y = np.array([0, 2/(self.maximo - self.minimo) ,0])
+        plt.triplot(x,y)
+        plt.show()
+        print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen4.jpg")
+    
 class Uniforme(Distribucion):
     def __init__(self, flujo1, flujo2,flujo3,flujo4,flujo5):
         Distribucion.__init__(self)
@@ -221,6 +236,7 @@ class Uniforme(Distribucion):
         plt.xlabel('valores del Flujo Neto')
         plt.ylabel('Total repeticiones')
         plt.show()
+        plt.savefig("./escenario_2/imagen5.jpg")
 class Inversion():
 
     def __init__(self):
@@ -247,6 +263,7 @@ class Inversion():
         data = pd.DataFrame(columns=  ['inv_ini', 'año_1', 'año_2', 'año_3', 'año_4', 'año_5', 'VPN', 'inflacion', 'valor_de_rescate', 'tasa_de_descuento'], index = range(corridas))
         for i in data.index :
             data.iloc[i] = self.arreglo()
+        data.to_excel(r'./escenario_2/export_dataframe.xlsx', index = False)
         return data
     def graficar_histrogramaVPN(self):
       # HISTOGRAMA VPN , cambie el nombre corridas por datacorridas
@@ -257,6 +274,7 @@ class Inversion():
         plt.xlabel('valores del VPN')
         plt.ylabel('Total repeticiones')
         plt.show()
+        plt.savefig("./escenario_2/imagen1.jpg")
 
 class pandasModel(QAbstractTableModel):
 

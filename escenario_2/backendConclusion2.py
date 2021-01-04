@@ -3,19 +3,19 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QDialog, QMessageBox
 from programa import *
 from escenario_2.conclusion import *
-from escenario_2.Reportes import *
-from escenario_2.convertidor import *
+from escenario_2.Reportes2 import *
+from escenario_2.convertidor2 import *
 class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion ):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.pushButton_descargarReporte.clicked.connect(self.click_Descargar)
-        self.obj_reportes=Reportes()
-        self.obj_convertidor=Convertidor()
+        self.obj_reportes=Reportes2()
+        self.obj_convertidor=Convertidor2()
         self.pushButton_atras.clicked.connect(self.atras)
     
     def click_Descargar(self):
-        print("Entro al boton")
+        print("Entro al boton del escenario 2")
         self.obj_reportes.crearCaratula()
         self.obj_convertidor.tablaPdf()
         self.obj_reportes.reporteGraficos()
