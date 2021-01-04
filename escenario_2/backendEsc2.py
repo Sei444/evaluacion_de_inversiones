@@ -74,16 +74,23 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         global main 
         main = Inversion()
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 65b403460913a1536e09858e3e78c5960067409f
         global text_conclusion
         text_conclusion = main.evaluar()
+        self.mostrar_popup()
     def click_conclusion(self):
         self.ventanaEsc2_conclusion = VentanaConclusion()
         self.ventanaEsc2_conclusion.mostrar_conclusion(text_conclusion)
         self.ventanaEsc2_conclusion.exec_()
+<<<<<<< HEAD
 =======
         main.evaluar()
         self.mostrar_popup()
 >>>>>>> 1cdcfd12d3b4946998000e98ddd301252f042a37
+=======
+>>>>>>> 65b403460913a1536e09858e3e78c5960067409f
     def mostrar_popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Mensaje")
@@ -91,34 +98,41 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         msg.setIcon(QMessageBox.Information)
         x = msg.exec_()
     def click_histrogramaVPN(self):
-        main.graficar_histrogramaVPN()
+        try:
+            main.graficar_histrogramaVPN()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para el Histograma VPN")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
     def click_inversionInicial(self):
        try:
-            obj_inv.grafica_distTriangular()
+            obj_inv.grafica_distTriangular_Inv()
        except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de inversion inicial")
+            msg.setText("No existen datos simulados de Inversion Inicial")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
 
     def click_valorRescate(self):
         try:
-            obj_res.grafica_distTriangular()
+            obj_res.grafica_distTriangular_Res()
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de valor de Rescate")
+            msg.setText("No existen datos simulados del Valor de Rescate")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
         
     def click_tasaInflacion(self):
         try:
-            obj_inf.grafica_distTriangular_inf()
+            obj_inf.grafica_distTriangular_Inf()
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de la tasa de inflacion")
+            msg.setText("No existen datos simulados de la Tasa de inflacion")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
         
@@ -128,17 +142,22 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de la tasa de inflacion")
+            msg.setText("No existen datos simulados de los Flujos Netos")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
     def click_conclusion(self):
+<<<<<<< HEAD
 <<<<<<< HEAD
         self.ventanaEsc1_conclusion = VentanaConclusion()
         self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
         self.ventanaEsc1_conclusion.exec_()
 =======
+=======
+>>>>>>> 65b403460913a1536e09858e3e78c5960067409f
         try:
-            self.ventana_conclusion.exec_()
+            self.ventanaEsc1_conclusion = VentanaConclusion()
+            self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
+            self.ventanaEsc1_conclusion.exec_()
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -146,41 +165,57 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
 
+<<<<<<< HEAD
 >>>>>>> 1cdcfd12d3b4946998000e98ddd301252f042a37
+=======
+       
+>>>>>>> 65b403460913a1536e09858e3e78c5960067409f
     def volver_home(self):
        #cerrar ventana 
        self.close()
     def click_tablaS(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
-        flujo = dataCorridas.iloc[:,[1,2,3,4,5,6,7]]
-        self.model = pandasModel(flujo)
-        self.view = QTableView()
-        self.view.setModel(self.model)
-        corridas_str = str(corridas)
-        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
-        self.view.setWindowTitle(titulo)
-        self.view.resize(1000, 600)
-        self.view.show()
+        try:
+            flujo = dataCorridas.iloc[:,[0,1,2,3,4,5,6,7]]
+            flujo.to_excel(r'./escenario_2/export_dataframe.xlsx', index = False)
+            self.model = pandasModel(flujo)
+            self.view = QTableView()
+            self.view.setModel(self.model)
+            corridas_str = str(corridas)
+            titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+            self.view.setWindowTitle(titulo)
+            self.view.resize(1000, 600)
+            self.view.show()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la tabla sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_tablaS2(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
-        flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
-        flujo_data['año_5']= flujo_data['año_5'] - flujo_data['valor_de_rescate']
-        flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
-        print(flujo_data)
-        flujo_data = flujo_data * 100 / 40
-        self.model = pandasModel(flujo_data)
-        self.view = QTableView()
-        self.view.setModel(self.model)
-        titulo = "Tabla: Resultado flujo neto antes de impuestos"
-        self.view.setWindowTitle(titulo)
-        self.view.resize(1000, 600)
-        self.view.show()
-    def closeEvent(self,event):
-        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
-        if pregunta == QMessageBox.Yes: 
-            event.accept()
-        else:
-            event.ignore()
+        try:
+            flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
+            flujo_data['año_5']= flujo_data['año_5'] - flujo_data['valor_de_rescate']
+            flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
+            print(flujo_data)
+            flujo_data = flujo_data * 100 / 40
+            self.model = pandasModel(flujo_data)
+            self.view = QTableView()
+            self.view.setModel(self.model)
+            titulo = "Tabla: Resultado flujo neto antes de impuestos"
+            self.view.setWindowTitle(titulo)
+            self.view.resize(1000, 600)
+            self.view.show()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la tabla sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+
+    
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -202,11 +237,12 @@ class Triangular(Distribucion):
         #INFLACION
         inflacion = 100 - (np.around(np.random.triangular(100 - self.minimo, 100 - self.esperado, 100 - self.maximo, 1), 0)) #Meter datos Estimacion pesimista - probable - optimista
         return inflacion
-    def grafica_distTriangular(self):
+    def grafica_distTriangular_Inv(self):
         x = np.array([self.minimo, self.esperado ,self.maximo])
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
         plt.triplot(x,y)
         plt.show()
+<<<<<<< HEAD
 <<<<<<< HEAD
     def grafica_distTriangular_inf(self):
         x = np.array([self.maximo, self.esperado ,self.minimo])
@@ -217,6 +253,25 @@ class Triangular(Distribucion):
         print("mostrar grafica distri")
         plt.savefig("./escenario_2/imagen2.jpg")
 >>>>>>> 1cdcfd12d3b4946998000e98ddd301252f042a37
+=======
+        print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen2.jpg")
+    def grafica_distTriangular_Res(self):
+        x = np.array([self.minimo, self.esperado ,self.maximo])
+        y = np.array([0, 2/(self.maximo - self.minimo) ,0])
+        plt.triplot(x,y)
+        plt.show()
+        print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen3.jpg")
+    def grafica_distTriangular_Inf(self):
+        x = np.array([self.minimo, self.esperado ,self.maximo])
+        y = np.array([0, 2/(self.maximo - self.minimo) ,0])
+        plt.triplot(x,y)
+        plt.show()
+        print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen4.jpg")
+    
+>>>>>>> 65b403460913a1536e09858e3e78c5960067409f
 class Uniforme(Distribucion):
     def __init__(self, flujo1, flujo2,flujo3,flujo4,flujo5):
         Distribucion.__init__(self)
@@ -244,6 +299,7 @@ class Uniforme(Distribucion):
         plt.xlabel('valores del Flujo Neto')
         plt.ylabel('Total repeticiones')
         plt.show()
+        plt.savefig("./escenario_2/imagen5.jpg")
 class Inversion():
 
     def __init__(self):
@@ -272,6 +328,7 @@ class Inversion():
         data = pd.DataFrame(columns=  ['inv_ini', 'año_1', 'año_2', 'año_3', 'año_4', 'año_5', 'VPN', 'inflacion', 'valor_de_rescate', 'tasa_de_descuento'], index = range(corridas))
         for i in data.index :
             data.iloc[i] = self.arreglo()
+        
         return data
     def graficar_histrogramaVPN(self):
       # HISTOGRAMA VPN , cambie el nombre corridas por datacorridas
@@ -282,6 +339,7 @@ class Inversion():
         plt.xlabel('valores del VPN')
         plt.ylabel('Total repeticiones')
         plt.show()
+        plt.savefig("./escenario_2/imagen1.jpg")
     def probabilidad(self):
         p_vpn = dataCorridas['VPN'].to_numpy()
         may_01 = p_vpn[p_vpn > 0.1]
