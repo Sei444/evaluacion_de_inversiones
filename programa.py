@@ -17,6 +17,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow, Ui_MainWindow):
         pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
         if pregunta == QMessageBox.Yes: 
             event.accept()
+            QApplication.quit()
         else:
             event.ignore()
 if __name__ == "__main__":

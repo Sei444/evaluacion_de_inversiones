@@ -6,7 +6,7 @@ import matplotlib
 import plotly.graph_objects as go
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QDialog, QMessageBox
-#from PyQt5.Qtcore import QAbstractTableModel , Qt
+from PyQt5.QtCore import QAbstractTableModel, Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.stats import norm
@@ -23,12 +23,13 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
         self.pushButton_simular.clicked.connect(self.click_simular)
         self.pushButton_coclusion.clicked.connect(self.click_conclusion)
-        #self.pushButton_vpn.clicked.connect(self.click_histrogramaVPN)
+        self.pushButton_vpn.clicked.connect(self.click_histrogramaVPN)
         self.pushButton_inv.clicked.connect(self.click_inversionInicial)
         self.pushButton_res.clicked.connect(self.click_valorRescate)
         self.pushButton_inf.clicked.connect(self.click_tasaInflacion)
         self.pushButton_neto.clicked.connect(self.click_flujoNeto)
-        #self.pushButton_tabla.clicked.connect(self.click_tablaS)
+        self.pushButton_tabla.clicked.connect(self.click_tablaS)
+        self.pushButton_tabla2.clicked.connect(self.click_tablaS2)
         self.ventana_conclusion = VentanaConclusion()
 
         
@@ -58,7 +59,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         global t_descuento
         t_descuento = int(self.lineEdit_tasadescuento.text())
     
-        self.mostrar_popup()
+        
 
         #llamada a las distribuciones triangulares
         global obj_inv
@@ -74,15 +75,15 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         global main 
         main = Inversion()
         main.evaluar()
-    
+        self.mostrar_popup()
     def mostrar_popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Mensaje")
         msg.setText("Se cargaron los datos correctamente")
         msg.setIcon(QMessageBox.Information)
         x = msg.exec_()
-    """def click_histrogramaVPN(self):
-        main.graficar_histrogramaTIR()"""
+    def click_histrogramaVPN(self):
+        main.graficar_histrogramaVPN()
     def click_inversionInicial(self):
        try:
             obj_inv.grafica_distTriangular()
@@ -122,21 +123,49 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
             msg.setText("No existen datos simulados de la tasa de inflacion")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
-        
-    """def click_tablaS(self):
-        main.graficar_tablaSimulacion()"""
     def click_conclusion(self):
-        
-        self.ventana_conclusion.exec_()
+        try:
+            self.ventana_conclusion.exec_()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la conclusion sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
 
     def volver_home(self):
-       #self.ventana_principal = QMainWindow()
-       #self.uiPrincipal = Ui_MainWindow()
-       #self.uiPrincipal.setupUi(self.ventana_principal)
-       
-       self.close()    
-
-
+       #cerrar ventana 
+       self.close()
+    def click_tablaS(self):
+        #ventana emergente con tabla de los datos DATAFRAME corridas
+        self.model = pandasModel(dataCorridas)
+        self.view = QTableView()
+        self.view.setModel(self.model)
+        corridas_str = str(corridas)
+        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+        self.view.setWindowTitle(titulo)
+        self.view.resize(1000, 600)
+        self.view.show()
+    def click_tablaS2(self):
+        #ventana emergente con tabla de los datos DATAFRAME corridas
+        flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
+        flujo_data[4]= flujo_data['año_5'] - flujo_data['valor_de_rescate']
+        flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
+        flujo_data = flujo_data * 100 / 40
+        self.model = pandasModel(flujo_data)
+        self.view = QTableView()
+        self.view.setModel(self.model)
+        corridas_str = str(corridas)
+        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+        self.view.setWindowTitle(titulo)
+        self.view.resize(1000, 600)
+        self.view.show()
+    def closeEvent(self,event):
+        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
+        if pregunta == QMessageBox.Yes: 
+            event.accept()
+        else:
+            event.ignore()
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -156,10 +185,7 @@ class Triangular(Distribucion):
     #resultado para inflacion
     def generar_resInf(self):
         #INFLACION
-        print('inflacion :')
         inflacion = 100 - (np.around(np.random.triangular(100 - self.minimo, 100 - self.esperado, 100 - self.maximo, 1), 0)) #Meter datos Estimacion pesimista - probable - optimista
-        #inflacion = inflacion.astype(int)
-        print(inflacion)
         return inflacion
     def grafica_distTriangular(self):
         x = np.array([self.minimo, self.esperado ,self.maximo])
@@ -178,101 +204,82 @@ class Uniforme(Distribucion):
         self.flujo5 = flujo5
     def generar_resultado(self):
         #INDICES
-        indices = np.around(np.random.uniform(0,4,5), 0) # Meter DEL - AL, y cuantos datos se desea generar
-        indices = indices.astype(int) #Convierte los valores del arrreglo a enteros
+        indices = np.random.uniform(0,1,5) * 5
+        indices = indices.astype(int)
         #FLUJO
         flujo = [self.flujo1, self.flujo2, self.flujo3, self.flujo4, self.flujo5] #Meter los valores que tendra nuestro flujo
-
         #NUEVO FLUJO SEGUN INDICES (ARREGLO NUEVO)
-        flujoNuevo = np.take(flujo,indices)
+        flujoNuevo = np.take(flujo,(indices))
         return flujoNuevo
     def grafica_distUniforme(self):
-        pass
+        #datos
+        flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
+        array = np.concatenate( (flujo_data['año_1'].to_numpy(), flujo_data['año_2'].to_numpy(), flujo_data['año_3'].to_numpy(), flujo_data['año_4'].to_numpy(), (flujo_data['año_5'].to_numpy()-flujo_data['valor_de_rescate'].to_numpy())), axis = None)
+        #grafico con solucion 1
+        plt.hist(array, bins = 5, orientation='vertical')
+        plt.title('Histograma Flujo Neto')
+        plt.xlabel('valores del Flujo Neto')
+        plt.ylabel('Total repeticiones')
+        plt.show()
 class Inversion():
 
     def __init__(self):
         pass
-       # print("media flujo es:" , self.media_flujo, self.desviacionE_flujo)
-        #self.figure = plt.figure(figsize=(10,5))
-       # self.canvas = FigureCanvas(self.figure)
+    
     def evaluar(self):
-        print('EVALUAR')
         global dataCorridas 
         dataCorridas = self.construir_dataFrame()
-    #Que tendria que calcular?
     def calcular_VPN(self, descuento, arregloFinal):
         return np.npv(descuento,arregloFinal)
     def arreglo(self):
         inv = obj_inv.generar_resultado()
-        print(inv)
         flujo = obj_flujos.generar_resultado()
-        print(flujo)
         rescate = obj_res.generar_resultado()
-        print(rescate)
         inflacion = obj_inf.generar_resInf()/100
-        print(inflacion)
         descuento = np.around(t_descuento/100 + inflacion+(t_descuento/100 * inflacion), 8)
-        print(descuento)
         flujo[4] = np.take(flujo,4) + rescate
         arregloFinal = np.concatenate((inv,flujo),axis=0)
-        print(arregloFinal)
         vpn =  self.calcular_VPN(descuento,arregloFinal)
-        print(vpn)
         res = np.concatenate((arregloFinal, vpn, inflacion, rescate, descuento), axis = None)
-        print(res)
         return res    
     def construir_dataFrame(self):
-        print('Hola construir dataframe')
-        #Corridas
-        #corridas construye un dataframe de tamaño n difinido por --> range(n)
+        #construye un dataframe de tamaño n difinido por --> range(n)
         data = pd.DataFrame(columns=  ['inv_ini', 'año_1', 'año_2', 'año_3', 'año_4', 'año_5', 'VPN', 'inflacion', 'valor_de_rescate', 'tasa_de_descuento'], index = range(corridas))
         for i in data.index :
             data.iloc[i] = self.arreglo()
-            print(data.iloc[i])
-        print(data)
         return data
-    """def graficar_tablaSimulacion(self):
-        
-        tabla2 = tabla.to_numpy()
-        print("Imprimiendo tabla")
-        print(tabla)
-        
-        #primera opcion
-
-        fig, ax =plt.subplots(1,1)
-        column_labels=['inversión_inicial', 'ingresos_año1', 'ingresos_año2','ingresos_año3', 'ingresos_año4','ingresos_año5', 'TIR']
-        ax.axis('tight')
-        ax.axis('off')
-        ax.table(cellText=tabla2,colLabels=column_labels,loc="center")
-        plt.show()
-        #segunda opcion
-        fig = go.Figure(data=[go.Table(
-            header=dict(values=list(tabla.columns),
-                        fill_color='paleturquoise',
-                        align='left'),
-            cells=dict(values=[tabla.inversión_inicial, tabla.ingresos_año1, tabla.ingresos_año2, tabla.ingresos_año3, tabla.ingresos_año4, tabla.ingresos_año5, tabla.TIR],
-                    fill_color='lavender',
-                    align='left'))
-        ])
-        fig.show()
-        """
-  
     def graficar_histrogramaVPN(self):
       # HISTOGRAMA VPN , cambie el nombre corridas por datacorridas
-        dataCorridas.sort_values(by=['VPN'], inplace=True) # ordenar en dataframe de menor a mayor segun el VPN
         vpn_data = dataCorridas['VPN']
-        tabla2 = dataCorridas.to_numpy()
-        array = vpn_data.to_numpy()
-        print(array)
-        fragmentos = np.around(np.linspace(array[0], array[-1], 21), 3 )
-        bins = fragmentos.tolist()
-        print(bins)
-        plt.hist(array, bins = bins, orientation='vertical')
+        np_vpn_data = vpn_data.to_numpy()
+        plt.hist(np_vpn_data, bins = 20, orientation='vertical')
         plt.title('Histograma VPN')
         plt.xlabel('valores del VPN')
         plt.ylabel('Total repeticiones')
         plt.show()
-        plt.savefig("./escenario_2/imagen1.jpg")
+
+class pandasModel(QAbstractTableModel):
+
+    def __init__(self, data):
+        QAbstractTableModel.__init__(self)
+        self._data = data
+
+    def rowCount(self, parent=None):
+        return self._data.shape[0]
+
+    def columnCount(self, parnet=None):
+        return self._data.shape[1]
+
+    def data(self, index, role=Qt.DisplayRole):
+        if index.isValid():
+            if role == Qt.DisplayRole:
+                return str(self._data.iloc[index.row(), index.column()])
+        return None
+
+    def headerData(self, col, orientation, role):
+        if orientation == Qt.Horizontal and role == Qt.DisplayRole:
+            return self._data.columns[col]
+        return None     
 
        
 if __name__ == "__main__":

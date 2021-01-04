@@ -13,7 +13,8 @@ from scipy.stats import norm
 from escenario_1.ventanaesc1 import *
 from programa import *
 from escenario_1.backendConclusion import *
-class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
+
+class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
     def __init__(self):
         super().__init__()
         #QAbstractTableModel.__init__(self)
@@ -26,7 +27,6 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         self.pushButton_distNInvIni.clicked.connect(self.click_distNInvInicial)
         self.pushButton_distNFlujoNeto.clicked.connect(self.click_disNFlujos)
         self.pushButton_tablaS.clicked.connect(self.click_tablaS)
-        self.ventanaEsc1_conclusion = VentanaConclusion()
         
     def click_simular(self):
         media_flujo = int(self.media_flujo.text())
@@ -35,18 +35,36 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         desviacionE_inv = int(self.desviacionE_inv.text())
         global corridas
         corridas = int(self.lineEdit_Ncorridas.text())
-        #años =int(self.lineEdit_anios.text()) 
-        print("la media es : " , media_flujo , desviacionE_flujo , media_inv ,desviacionE_inv,corridas)
-        
+        global trema
+        trema = int(self.lineEdit_TREMA.text())
+
         global main 
         main= Inversion(media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas)
         global obj_inv
         obj_inv = Normal(media_inv,desviacionE_inv)
         global obj_flujosNetos
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
-        print(main.evaluar())
+        global text_conclusion
+        text_conclusion = main.evaluar()
+        self.mostrar_popup()
+    def mostrar_popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Mensaje")
+        msg.setText("Se cargaron los datos correctamente")
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
     def click_conclusion(self):
-        self.ventanaEsc1_conclusion.exec_()
+        try:
+            self.ventanaEsc1_conclusion = VentanaConclusion()
+            self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
+            self.ventanaEsc1_conclusion.exec_()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la conclusion sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+    
     def click_histrogramaTIR(self):
         main.graficar_histrogramaTIR()
     def click_distAcumTIR(self):
@@ -64,15 +82,17 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
         print(titulo)
         self.view.setWindowTitle(titulo)
-        self.view.resize(800, 600)
+        self.view.resize(700, 600)
         self.view.show()
     def volver_home(self):
-       #self.ventana_principal = QMainWindow()
-       #self.uiPrincipal = Ui_MainWindow()
-       #self.uiPrincipal.setupUi(self.ventana_principal)
-       self.close()    
-
-    
+       self.close()
+    def closeEvent(self,event):
+        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
+        if pregunta == QMessageBox.Yes: 
+            event.accept()
+            QApplication.quit()
+        else:
+            event.ignore()        
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -85,16 +105,17 @@ class Normal(Distribucion):
         self.desviacion_e = desviacion_e
         self.cantidad_valor = cantidad_valor
 
+
     def generar_resultado(self):
         res = np.random.normal(self.media, self.desviacion_e,self.cantidad_valor)
         return res
+    
     def grafica_distnormal_Inv(self):
-        normal = norm(self.media, self.desviacion_e)
-        x = np.linspace(normal.ppf(0.01),
-                        normal.ppf(0.99), 100)
-        fp = normal.pdf(x) # Función de Probabilidad
-        plt.plot(x, fp)
-        plt.title('Distribución Normal')
+        x_1 = np.linspace(norm(self.media, self.desviacion_e).ppf(0.01),
+                  norm(self.media, self.desviacion_e).ppf(0.99), 10000)
+        FDP_normal = norm(self.media, self.desviacion_e).pdf(x_1) # FDP
+        plt.plot(x_1, FDP_normal, label='FDP nomal')
+        plt.title('Función de Densidad de Probabilidad')
         plt.ylabel('probabilidad')
         plt.xlabel('valores')
         plt.show()
@@ -120,12 +141,11 @@ class Inversion():
         self.desviacionE_inv = desviacionE_inv
         self.corridas = corridas
         self.data = pd.DataFrame()
-       # print("media flujo es:" , self.media_flujo, self.desviacionE_flujo)
-        #self.figure = plt.figure(figsize=(10,5))
-       # self.canvas = FigureCanvas(self.figure)
     def evaluar(self):
         global tabla 
         tabla= self.construir_dataFrame()
+        conclusion = self.probabilidad()
+        return conclusion
     def calcular_tir(self):
         objt_inv= Normal(self.media_inv,self.desviacionE_inv,1)
         objt_flujos = Normal(self.media_flujo,self.desviacionE_flujo,5)
@@ -145,19 +165,15 @@ class Inversion():
         data.to_excel(r'./escenario_1/export_dataframe.xlsx', index = False)
         return data
    
-  
     def graficar_histrogramaTIR(self):
         #datos
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
         array = tir_data.to_numpy()
-        print("el array tir es: ",array)
         fragmentos = np.around(np.linspace(array[0], array[-1], 21), 3 )
         bins = fragmentos.tolist()
-        print(bins)
-
         #grafico con solucion 1
-        plt.hist(array, bins = bins, orientation='horizontal')
+        plt.hist(array, bins = bins, orientation='vertical')
         plt.title('Histograma TIR')
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
@@ -183,7 +199,6 @@ class Inversion():
 
         tir_acu["fracción"] = round((pd.cut(array, bins= intervals).value_counts())/(self.corridas),3)
         tir_acu["fracción acumulada"] = tir_acu["fracción"].cumsum()
-        print(tir_acu)
         a = np.arange(tir_acu.shape[0])
         plt.plot(tir_acu.index.mid, tir_acu['fracción acumulada'])
         plt.title('Frecuencia acumulada TIR')
@@ -191,6 +206,19 @@ class Inversion():
         plt.ylabel('Frecuencia acumulada')
         plt.show()
         plt.savefig("./escenario_1/imagen2.jpg")
+
+    def probabilidad(self):
+        p_tir = tabla['TIR'].to_numpy()
+        may_trema = p_tir[p_tir > trema]
+        print(may_trema)
+        porcentaje = len(may_trema) * 100 / corridas
+        str_procentaje = str(porcentaje)
+        print(porcentaje)
+        if porcentaje >= 90:
+            res = 'Los parametros indican que la inversión puede ser aceptada, superando un '+ str_procentaje + '% de exito'
+        else:
+            res = 'Los parametros indican que la inversión debe ser rechazada, dado que la probalidad de exito no supera el 90%, siendo la probalidad de exito solo  '+str_procentaje+'% '
+        return res
 
 class pandasModel(QAbstractTableModel):
 
