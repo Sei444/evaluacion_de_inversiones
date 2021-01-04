@@ -177,9 +177,10 @@ class Inversion():
         str_procentaje = str(porcentaje)
         print(porcentaje)
         if porcentaje >= 90:
-            res = 'Los parametros indican que la inversión puede ser aceptada, cumplindo con los criterios de aceptación Prob [TIR > TREMA] > 90%' + str_procentaje + '% de exito'
+            res = 'Los parametros indican que la inversión puede ser aceptada, cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%. Siendo esta probalilidad = ' + str_procentaje + '%'
         else:
-            res = 'Los parametros indican que la inversión debe ser rechazada, dado que la probalidad de exito no supera el 90%, siendo la probalidad de exito solo  '+str_procentaje+'% '
+
+            res = 'Los parametros indican que la inversión debe ser rechazada, NO cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%. Siendo esta probalilidad = ' + str_procentaje + '%'
         return res
 
 class pandasModel(QAbstractTableModel):
