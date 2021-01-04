@@ -87,14 +87,21 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         msg.setIcon(QMessageBox.Information)
         x = msg.exec_()
     def click_histrogramaVPN(self):
-        main.graficar_histrogramaVPN()
+        try:
+            main.graficar_histrogramaVPN()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para el Histograma VPN")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
     def click_inversionInicial(self):
        try:
             obj_inv.grafica_distTriangular_Inv()
        except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de inversion inicial")
+            msg.setText("No existen datos simulados de Inversion Inicial")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
 
@@ -104,7 +111,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de valor de Rescate")
+            msg.setText("No existen datos simulados del Valor de Rescate")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
         
@@ -114,7 +121,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de la tasa de inflacion")
+            msg.setText("No existen datos simulados de la Tasa de inflacion")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
         
@@ -124,7 +131,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
-            msg.setText("No existen datos simulados de la tasa de inflacion")
+            msg.setText("No existen datos simulados de los Flujos Netos")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
     def click_conclusion(self):
@@ -145,35 +152,47 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
        self.close()
     def click_tablaS(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
-        flujo = dataCorridas.iloc[:,[1,2,3,4,5,6,7]]
-        self.model = pandasModel(flujo)
-        self.view = QTableView()
-        self.view.setModel(self.model)
-        corridas_str = str(corridas)
-        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
-        self.view.setWindowTitle(titulo)
-        self.view.resize(1000, 600)
-        self.view.show()
+        try:
+            flujo = dataCorridas.iloc[:,[0,1,2,3,4,5,6,7]]
+            flujo.to_excel(r'./escenario_2/export_dataframe.xlsx', index = False)
+            self.model = pandasModel(flujo)
+            self.view = QTableView()
+            self.view.setModel(self.model)
+            corridas_str = str(corridas)
+            titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+            self.view.setWindowTitle(titulo)
+            self.view.resize(1000, 600)
+            self.view.show()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la tabla sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_tablaS2(self):
         #ventana emergente con tabla de los datos DATAFRAME corridas
-        flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
-        flujo_data['año_5']= flujo_data['año_5'] - flujo_data['valor_de_rescate']
-        flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
-        print(flujo_data)
-        flujo_data = flujo_data * 100 / 40
-        self.model = pandasModel(flujo_data)
-        self.view = QTableView()
-        self.view.setModel(self.model)
-        titulo = "Tabla: Resultado flujo neto antes de impuestos"
-        self.view.setWindowTitle(titulo)
-        self.view.resize(1000, 600)
-        self.view.show()
-    def closeEvent(self,event):
-        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
-        if pregunta == QMessageBox.Yes: 
-            event.accept()
-        else:
-            event.ignore()
+        try:
+            flujo_data = dataCorridas.iloc[:,[1,2,3,4,5,8]]
+            flujo_data['año_5']= flujo_data['año_5'] - flujo_data['valor_de_rescate']
+            flujo_data = flujo_data.iloc[:,[0,1,2,3,4]]
+            print(flujo_data)
+            flujo_data = flujo_data * 100 / 40
+            self.model = pandasModel(flujo_data)
+            self.view = QTableView()
+            self.view.setModel(self.model)
+            titulo = "Tabla: Resultado flujo neto antes de impuestos"
+            self.view.setWindowTitle(titulo)
+            self.view.resize(1000, 600)
+            self.view.show()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la tabla sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+
+    
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -273,7 +292,7 @@ class Inversion():
         data = pd.DataFrame(columns=  ['inv_ini', 'año_1', 'año_2', 'año_3', 'año_4', 'año_5', 'VPN', 'inflacion', 'valor_de_rescate', 'tasa_de_descuento'], index = range(corridas))
         for i in data.index :
             data.iloc[i] = self.arreglo()
-        data.to_excel(r'./escenario_2/export_dataframe.xlsx', index = False)
+        
         return data
     def graficar_histrogramaVPN(self):
       # HISTOGRAMA VPN , cambie el nombre corridas por datacorridas

@@ -55,10 +55,11 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
         x = msg.exec_()
     def click_conclusion(self):
         try:
+            
             self.ventanaEsc1_conclusion = VentanaConclusion()
             self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
             self.ventanaEsc1_conclusion.exec_()
-        except NameError:
+        except:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
             msg.setText("No se puede mostrar la conclusion sin datos simulados")
@@ -66,34 +67,68 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
             x = msg.exec_()
     
     def click_histrogramaTIR(self):
-        main.graficar_histrogramaTIR()
+        try:
+            main.graficar_histrogramaTIR()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para el Histograma TIR")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_distAcumTIR(self):
-        main.graficar_distAcumuladaTIR()
+        try:
+            main.graficar_distAcumuladaTIR()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para la Distribucion Acumulada")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_distNInvInicial(self):
-        obj_inv.grafica_distnormal_Inv()
+        try:
+            obj_inv.grafica_distnormal_Inv()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para la Inversion Inicial")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_disNFlujos(self):
-        obj_flujosNetos.grafica_distnormal_Flujo()
+        try:
+            obj_flujosNetos.grafica_distnormal_Flujo()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para los Flujos Netos")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        
     def click_tablaS(self):
-        self.model = pandasModel(tabla)
-        self.view = QTableView()
-        self.view.setModel(self.model)
-        corridas_str = str(corridas)
-        print(corridas_str)
-        titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
-        print(titulo)
-        self.view.setWindowTitle(titulo)
-        self.view.resize(700, 600)
-        self.view.show()
+        try:
+            self.model = pandasModel(tabla)
+            self.view = QTableView()
+            self.view.setModel(self.model)
+            corridas_str = str(corridas)
+            print(corridas_str)
+            titulo = "Tabla: Resultado de simular "+ corridas_str + " corridas"
+            print(titulo)
+            self.view.setWindowTitle(titulo)
+            self.view.resize(700, 600)
+            self.view.show()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No existen datos simulados para la tabla")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+      
     def volver_home(self):
        self.close()
 
-    """def closeEvent(self,event):
-        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
-        if pregunta == QMessageBox.Yes: 
-            event.accept()
-            
-        else:
-            event.ignore()"""     
+         
 class Distribucion:
     def __init__(self):
         self.res =0
