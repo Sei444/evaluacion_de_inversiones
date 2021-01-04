@@ -58,7 +58,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         global t_descuento
         t_descuento = int(self.lineEdit_tasadescuento.text())
     
-        self.mostrar_popup()
+        
 
         #llamada a las distribuciones triangulares
         global obj_inv
@@ -73,12 +73,17 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
         global main 
         main = Inversion()
+<<<<<<< HEAD
         global text_conclusion
         text_conclusion = main.evaluar()
     def click_conclusion(self):
         self.ventanaEsc2_conclusion = VentanaConclusion()
         self.ventanaEsc2_conclusion.mostrar_conclusion(text_conclusion)
         self.ventanaEsc2_conclusion.exec_()
+=======
+        main.evaluar()
+        self.mostrar_popup()
+>>>>>>> 1cdcfd12d3b4946998000e98ddd301252f042a37
     def mostrar_popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Mensaje")
@@ -127,9 +132,21 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
     def click_conclusion(self):
+<<<<<<< HEAD
         self.ventanaEsc1_conclusion = VentanaConclusion()
         self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
         self.ventanaEsc1_conclusion.exec_()
+=======
+        try:
+            self.ventana_conclusion.exec_()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la conclusion sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+
+>>>>>>> 1cdcfd12d3b4946998000e98ddd301252f042a37
     def volver_home(self):
        #cerrar ventana 
        self.close()
@@ -158,6 +175,12 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         self.view.setWindowTitle(titulo)
         self.view.resize(1000, 600)
         self.view.show()
+    def closeEvent(self,event):
+        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
+        if pregunta == QMessageBox.Yes: 
+            event.accept()
+        else:
+            event.ignore()
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -184,11 +207,16 @@ class Triangular(Distribucion):
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
         plt.triplot(x,y)
         plt.show()
+<<<<<<< HEAD
     def grafica_distTriangular_inf(self):
         x = np.array([self.maximo, self.esperado ,self.minimo])
         y = np.array([0, 2/(self.minimo - self.maximo) ,0])
         plt.triplot(x,y)
         plt.show()
+=======
+        print("mostrar grafica distri")
+        plt.savefig("./escenario_2/imagen2.jpg")
+>>>>>>> 1cdcfd12d3b4946998000e98ddd301252f042a37
 class Uniforme(Distribucion):
     def __init__(self, flujo1, flujo2,flujo3,flujo4,flujo5):
         Distribucion.__init__(self)

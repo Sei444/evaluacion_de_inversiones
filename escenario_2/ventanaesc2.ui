@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>903</width>
-    <height>635</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -442,6 +442,9 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 85, 255);</string>
+    </property>
     <property name="text">
      <string>SIMULAR</string>
     </property>
@@ -454,6 +457,9 @@
       <width>111</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 85, 255);</string>
     </property>
     <property name="text">
      <string>CONCLUSIÓN</string>

@@ -11,12 +11,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Conclusion(object):
+class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(742, 503)
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(240, 50, 351, 51))
+        self.label.setGeometry(QtCore.QRect(190, 60, 351, 51))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -27,12 +27,13 @@ class Ui_Conclusion(object):
         self.textBrowser = QtWidgets.QTextBrowser(Dialog)
         self.textBrowser.setGeometry(QtCore.QRect(100, 130, 571, 211))
         self.textBrowser.setObjectName("textBrowser")
-        self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(30, 20, 75, 23))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(330, 380, 111, 31))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_atras = QtWidgets.QPushButton(Dialog)
+        self.pushButton_atras.setGeometry(QtCore.QRect(30, 20, 75, 23))
+        self.pushButton_atras.setObjectName("pushButton_atras")
+        self.pushButton_descargarReporte = QtWidgets.QPushButton(Dialog)
+        self.pushButton_descargarReporte.setGeometry(QtCore.QRect(330, 380, 111, 31))
+        self.pushButton_descargarReporte.setStyleSheet("background-color: rgb(0, 85, 255);")
+        self.pushButton_descargarReporte.setObjectName("pushButton_descargarReporte")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -41,15 +42,15 @@ class Ui_Conclusion(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Conclusion"))
         self.label.setText(_translate("Dialog", "Conclusion de la evaluación"))
-        self.pushButton.setText(_translate("Dialog", "Atras"))
-        self.pushButton_2.setText(_translate("Dialog", "Descargar Reporte"))
+        self.pushButton_atras.setText(_translate("Dialog", "Atras"))
+        self.pushButton_descargarReporte.setText(_translate("Dialog", "Descargar Reporte"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
-    ui = Ui_Conclusion()
+    ui = Ui_Dialog()
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())

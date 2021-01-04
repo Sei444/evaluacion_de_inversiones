@@ -13,7 +13,8 @@ from scipy.stats import norm
 from escenario_1.ventanaesc1 import *
 from programa import *
 from escenario_1.backendConclusion import *
-class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
+
+class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
     def __init__(self):
         super().__init__()
         #QAbstractTableModel.__init__(self)
@@ -45,19 +46,33 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
         global text_conclusion
         text_conclusion = main.evaluar()
+        self.mostrar_popup()
+    def mostrar_popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Mensaje")
+        msg.setText("Se cargaron los datos correctamente")
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
     def click_conclusion(self):
-
-        self.ventanaEsc1_conclusion = VentanaConclusion()
-        self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
-        self.ventanaEsc1_conclusion.exec_()
+        try:
+            self.ventanaEsc1_conclusion = VentanaConclusion()
+            self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
+            self.ventanaEsc1_conclusion.exec_()
+        except NameError:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la conclusion sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+    
     def click_histrogramaTIR(self):
         main.graficar_histrogramaTIR()
     def click_distAcumTIR(self):
         main.graficar_distAcumuladaTIR()
     def click_distNInvInicial(self):
-        obj_inv.grafica_distnormal()
+        obj_inv.grafica_distnormal_Inv()
     def click_disNFlujos(self):
-        obj_flujosNetos.grafica_distnormal()
+        obj_flujosNetos.grafica_distnormal_Flujo()
     def click_tablaS(self):
         self.model = pandasModel(tabla)
         self.view = QTableView()
@@ -70,7 +85,14 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1, ):
         self.view.resize(700, 600)
         self.view.show()
     def volver_home(self):
-       self.close()        
+       self.close()
+    def closeEvent(self,event):
+        pregunta = QMessageBox.question(self,"Salir","¿Seguro que quieres salir?" , QMessageBox.Yes |QMessageBox.No)
+        if pregunta == QMessageBox.Yes: 
+            event.accept()
+            QApplication.quit()
+        else:
+            event.ignore()        
 class Distribucion:
     def __init__(self):
         self.res =0
@@ -87,7 +109,8 @@ class Normal(Distribucion):
     def generar_resultado(self):
         res = np.random.normal(self.media, self.desviacion_e,self.cantidad_valor)
         return res
-    def grafica_distnormal(self):
+    
+    def grafica_distnormal_Inv(self):
         x_1 = np.linspace(norm(self.media, self.desviacion_e).ppf(0.01),
                   norm(self.media, self.desviacion_e).ppf(0.99), 10)
         FDP_normal = norm(self.media, self.desviacion_e).pdf(x_1) # FDP
@@ -96,6 +119,18 @@ class Normal(Distribucion):
         plt.ylabel('probabilidad')
         plt.xlabel('valores')
         plt.show()
+        plt.savefig("./escenario_1/imagen3.jpg")
+    def grafica_distnormal_Flujo(self):
+        normal = norm(self.media, self.desviacion_e)
+        x = np.linspace(normal.ppf(0.01),
+                        normal.ppf(0.99), 100)
+        fp = normal.pdf(x) # Función de Probabilidad
+        plt.plot(x, fp)
+        plt.title('Distribución Normal')
+        plt.ylabel('probabilidad')
+        plt.xlabel('valores')
+        plt.show()
+        plt.savefig("./escenario_1/imagen4.jpg")
 class Inversion():
 
     def __init__(self,media_flujo,desviacionE_flujo,media_inv,desviacionE_inv,corridas):
@@ -126,6 +161,8 @@ class Inversion():
         #row = Inversion()
         for i in data.index :
             data.iloc[i] = self.calcular_tir()
+        print("funciona!!!")
+        data.to_excel(r'./escenario_1/export_dataframe.xlsx', index = False)
         return data
    
     def graficar_histrogramaTIR(self):
@@ -141,7 +178,7 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
         plt.show()
-        
+        plt.savefig("./escenario_1/imagen1.jpg")
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
@@ -168,6 +205,7 @@ class Inversion():
         plt.xlabel('valores del TIR')
         plt.ylabel('Frecuencia acumulada')
         plt.show()
+        plt.savefig("./escenario_1/imagen2.jpg")
 
     def probabilidad(self):
         p_tir = tabla['TIR'].to_numpy()
@@ -214,3 +252,4 @@ if __name__ == "__main__":
     ventana_esc1.show()
     
     app.exec_()
+    
