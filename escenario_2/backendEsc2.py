@@ -12,7 +12,7 @@ from matplotlib.figure import Figure
 from scipy.stats import norm
 from escenario_2.ventanaesc2 import *
 from programa import *
-from escenario_2.backendConclusion import *
+from escenario_2.backendConclusion2 import *
 class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def __init__(self):
         super().__init__()
@@ -154,7 +154,6 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         self.model = pandasModel(flujo_data)
         self.view = QTableView()
         self.view.setModel(self.model)
-        corridas_str = str(corridas)
         titulo = "Tabla: Resultado flujo neto antes de impuestos"
         self.view.setWindowTitle(titulo)
         self.view.resize(1000, 600)
