@@ -89,7 +89,7 @@ class Normal(Distribucion):
         return res
     def grafica_distnormal(self):
         x_1 = np.linspace(norm(self.media, self.desviacion_e).ppf(0.01),
-                  norm(self.media, self.desviacion_e).ppf(0.99), 10000)
+                  norm(self.media, self.desviacion_e).ppf(0.99), 10)
         FDP_normal = norm(self.media, self.desviacion_e).pdf(x_1) # FDP
         plt.plot(x_1, FDP_normal, label='FDP nomal')
         plt.title('Función de Densidad de Probabilidad')
@@ -177,7 +177,7 @@ class Inversion():
         str_procentaje = str(porcentaje)
         print(porcentaje)
         if porcentaje >= 90:
-            res = 'Los parametros indican que la inversión puede ser aceptada, superando un '+ str_procentaje + '% de exito'
+            res = 'Los parametros indican que la inversión puede ser aceptada, cumplindo con los criterios de aceptación'+ str_procentaje + '% de exito'
         else:
             res = 'Los parametros indican que la inversión debe ser rechazada, dado que la probalidad de exito no supera el 90%, siendo la probalidad de exito solo  '+str_procentaje+'% '
         return res
