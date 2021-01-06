@@ -29,7 +29,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         self.pushButton_neto.clicked.connect(self.click_flujoNeto)
         self.pushButton_tabla.clicked.connect(self.click_tablaS)
         self.pushButton_tabla2.clicked.connect(self.click_tablaS2)
-        self.ventana_conclusion = VentanaConclusion()
+     
 
         
     def click_simular(self):
@@ -73,13 +73,21 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
         global main 
         main = Inversion()
-        global text_conclusion
-        text_conclusion = main.evaluar()
+        global text_conclusion , text_conclusion2
+        text_conclusion, text_conclusion2 = main.evaluar()
         self.mostrar_popup()
     def click_conclusion(self):
-        self.ventanaEsc2_conclusion = VentanaConclusion()
-        self.ventanaEsc2_conclusion.mostrar_conclusion(text_conclusion)
-        self.ventanaEsc2_conclusion.exec_()
+        try:
+            self.ventanaEsc2_conclusion = VentanaConclusion()
+            self.ventanaEsc2_conclusion.mostrar_conclusion(text_conclusion , text_conclusion2)
+            self.ventanaEsc2_conclusion.pase_de_reportes(main,obj_inv,obj_res,obj_inf,obj_flujos)
+            self.ventanaEsc2_conclusion.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Mensaje")
+            msg.setText("No se puede mostrar la conclusion sin datos simulados")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
     def mostrar_popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Mensaje")
@@ -139,18 +147,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
             msg.setText("No existen datos simulados de los Flujos Netos")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
-    def click_conclusion(self):
-        try:
-            self.ventanaEsc1_conclusion = VentanaConclusion()
-            self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
-            self.ventanaEsc1_conclusion.pase_de_reportes(main,obj_inv,obj_res,obj_inf,obj_flujos)
-            self.ventanaEsc1_conclusion.exec_()
-        except:
-            msg = QMessageBox()
-            msg.setWindowTitle("Mensaje")
-            msg.setText("No se puede mostrar la conclusion sin datos simulados")
-            msg.setIcon(QMessageBox.Critical)
-            x = msg.exec_()
+  
 
        
     def volver_home(self):
@@ -283,8 +280,8 @@ class Inversion():
         flujo_grafica = dataCorridas.iloc[:,[0,1,2,3,4,5,6,7]]
         flujo_grafica.to_excel(r'./escenario_2/export_dataframe.xlsx', index = False)
         
-        conclusion = self.probabilidad()
-        return conclusion
+        conclusion,conclusion2 = self.probabilidad()
+        return conclusion, conclusion2
     def calcular_VPN(self, descuento, arregloFinal):
         return np.npv(descuento,arregloFinal)
     def arreglo(self):
@@ -323,10 +320,12 @@ class Inversion():
         str_procentaje = str(porcentaje)
         print(porcentaje)
         if porcentaje >= 90:
-            res = 'Los parametros indican que la inversión puede ser aceptada, cumpliendo con los criterios de aceptación Prob[VPN > 0.1] > 90 %. Siendo esta probabilidad = '+ str_procentaje
+            res = 'Los parametros indican que la inversión puede ser aceptada, cumpliendo con los criterios de aceptación Prob[VPN > 0.1] > 90 %. Siendo esta probabilidad = '+ str_procentaje + '%'
+            res2 = 'Los parametros indican que la inversión puede ser aceptada, cumpliendo \n con los criterios de aceptación Prob[VPN > 0.1] > 90 %. \n Siendo esta probabilidad = '+ str_procentaje + '%'
         else:
-            res = 'Los parametros indican que la inversión debe ser rechazada, NO cumpliendo con los criterios de aceptación Prob[VPN > 0.1] > 90 %. Siendo esta probabilidad = '+ str_procentaje
-        return res
+            res = 'Los parametros indican que la inversión debe ser rechazada, NO cumpliendo con los criterios de aceptación Prob[VPN > 0.1] > 90 %. Siendo esta probabilidad = '+ str_procentaje + '%'
+            res2 = 'Los parametros indican que la inversión debe ser rechazada, NO cumpliendo \n con los criterios de aceptación Prob[VPN > 0.1] > 90 %.\n Siendo esta probabilidad = '+ str_procentaje + '%'
+        return res,res2
 
 class pandasModel(QAbstractTableModel):
 

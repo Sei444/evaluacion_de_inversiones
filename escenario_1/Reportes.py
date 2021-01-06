@@ -96,8 +96,8 @@ class Reportes(QWidget):
         c.drawString(200,450,"Conclusion")
         c.showPage()
         #Mensaje
-        my_text = "Los resultados de esta simulacion para la inversion de este negocio da a concluir \nque el proyecto es rentable para llevarlo a cabo ya que se muestra en los graficos\nque se logra un valor de ingresos aceptables."
-        #my_text = conclusion
+        #my_text = "Los parametros indican que la inversión debe ser rechazada\n, NO cumpliendo con los criterios de\n aceptación Prob [TIR > TREMA] > 90%. Siendo esta probabilidad 26.5%'"
+        my_text = conclusion
         textobject = c.beginText(2*cm, 29.7 * cm - 2 * cm)
         """for line in my_text.splitlines(False):
             print("linea: " ,line)

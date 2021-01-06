@@ -64,10 +64,6 @@ class Reportes2(QWidget):
             c.drawString(160,760,"Grafico del Flujo Neto")
             c.drawImage('./escenario_2/imagen5.jpg', 10, 175, 600, 500)
             c.showPage()
-            #Conclusion
-            c.setFont('Helvetica-Oblique', 50)
-            c.drawString(200,450,"Conclusion")
-            c.showPage()
             c.save()
             self.mostrar_popup()
         except Exception as e:

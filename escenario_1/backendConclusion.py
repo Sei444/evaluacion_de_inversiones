@@ -20,6 +20,7 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion_esc1 ):
         self.obj_convertidor=Convertidor()
         self.pushButton_atras.clicked.connect(self.atras)
         self.conclusion = ""
+        self.conclusion2 = ""
         
     def click_graficos(self): 
         self.obj_reportes.reporteGraficosDescarga()
@@ -32,10 +33,10 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion_esc1 ):
         self.obj_reportes.crearCaratula()
         self.obj_convertidor.tablaPdf()
         print('paso la tabla')
-        self.obj_reportes.reporteGraficos(self.conclusion)
+        self.obj_reportes.reporteGraficos(self.conclusion2)
         print('paso graficos')
         self.obj_reportes.reporteFinal()
-        
+        self.mostrar_popup()
     
     def mostrar_popup(self):
         msg = QMessageBox()
@@ -44,8 +45,9 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion_esc1 ):
         msg.setIcon(QMessageBox.Information)
         x = msg.exec_()
 
-    def mostrar_conclusion(self, conclusion):
+    def mostrar_conclusion(self, conclusion,conclusion2):
         self.conclusion = conclusion
+        self.conclusion2 = conclusion2
         self.textBrowser.setText(conclusion)
     def pase_de_reportes(self,main,obj_inv,obj_flujosNetos):
         main.graficar_histrogramaTIR()

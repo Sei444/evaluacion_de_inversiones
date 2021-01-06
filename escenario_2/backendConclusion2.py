@@ -25,6 +25,7 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion ):
         self.obj_convertidor=Convertidor2()
         self.pushButton_atras.clicked.connect(self.atras)
         self.conclusion = ""
+        self.conclusion2 = ""
     def click_graficos(self):
         self.obj_reportes.reporteGraficosDescarga()
     def click_tabla(self):
@@ -33,17 +34,18 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion ):
         print("Entro al boton")
         self.obj_reportes.crearCaratula()
         self.obj_convertidor.tablaPdf()
-        self.obj_reportes.reporteGraficos(self.conclusion)
+        self.obj_reportes.reporteGraficos(self.conclusion2)
         self.obj_reportes.reporteFinal()
-        #self.mostrar_popup()
+        self.mostrar_popup()
     def mostrar_popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Mensaje")
         msg.setText("Se creo el reporte correctamente")
         msg.setIcon(QMessageBox.Information)
         x = msg.exec_()
-    def mostrar_conclusion(self, conclusion):
+    def mostrar_conclusion(self, conclusion,conclusion2):
         self.conclusion = conclusion
+        self.conclusion2 = conclusion2
         self.textBrowser.setText(conclusion)
     def pase_de_reportes(self,main,obj_inv,obj_res,obj_inf,obj_flujos):
         main.graficar_histrogramaVPN()

@@ -44,8 +44,8 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
         obj_inv = Normal(media_inv,desviacionE_inv)
         global obj_flujosNetos
         obj_flujosNetos = Normal(media_flujo,desviacionE_flujo)
-        global text_conclusion
-        text_conclusion = main.evaluar()
+        global text_conclusion , text_conclusion2
+        text_conclusion,text_conclusion2 = main.evaluar()
         self.mostrar_popup()
     def mostrar_popup(self):
         msg = QMessageBox()
@@ -57,7 +57,7 @@ class  VentanaEscenario1(QtWidgets.QMainWindow, Ui_ventanaEsc1 ):
         try:
             
             self.ventanaEsc1_conclusion = VentanaConclusion()
-            self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion)
+            self.ventanaEsc1_conclusion.mostrar_conclusion(text_conclusion,text_conclusion2)
             self.ventanaEsc1_conclusion.pase_de_reportes(main,obj_inv,obj_flujosNetos)
             self.ventanaEsc1_conclusion.exec_()
         except Exception as inst:
@@ -189,8 +189,8 @@ class Inversion():
     def evaluar(self):
         global tabla 
         tabla= self.construir_dataFrame()
-        conclusion = self.probabilidad()
-        return conclusion
+        conclusion, conclusion2 = self.probabilidad()
+        return conclusion,conclusion2
     def calcular_tir(self):
         objt_inv= Normal(self.media_inv,self.desviacionE_inv,1)
         objt_flujos = Normal(self.media_flujo,self.desviacionE_flujo,5)
@@ -199,7 +199,6 @@ class Inversion():
         aux_tir = np.rint(np.insert(flujos_netos,0,-inversion))
         tir = round((np.irr(aux_tir)*100), 3)
         corrida = np.append(aux_tir, tir, axis=None)
-        
         return corrida
     def construir_dataFrame(self):
         data = pd.DataFrame(columns=['inversión_inicial', 'ingresos_año1', 'ingresos_año2','ingresos_año3', 'ingresos_año4','ingresos_año5', 'TIR'], index=range(self.corridas))
@@ -264,11 +263,13 @@ class Inversion():
         str_procentaje = str(porcentaje)
         print(porcentaje)
         if porcentaje >= 90:
-            res = 'Los parametros indican que la inversión puede ser aceptada, cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%. Siendo esta probabilidad = ' + str_procentaje + '%'
+            res = 'Los parametros indican que la inversión puede ser aceptada,  cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%. Siendo esta probabilidad = ' + str_procentaje + '%'
+            res2 = 'Los parametros indican que la inversión puede ser aceptada\n,  cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%. \nSiendo esta probabilidad = ' + str_procentaje + '%'
         else:
 
             res = 'Los parametros indican que la inversión debe ser rechazada, NO cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%. Siendo esta probabilidad = ' + str_procentaje + '%'
-        return res
+            res2 = 'Los parametros indican que la inversión debe ser rechazada\n, NO cumpliendo con los criterios de aceptación Prob [TIR > TREMA] > 90%.\n Siendo esta probabilidad = ' + str_procentaje + '%'
+        return res,res2
 
 class pandasModel(QAbstractTableModel):
 
