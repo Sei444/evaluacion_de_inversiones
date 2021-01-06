@@ -64,6 +64,9 @@
      <property name="text">
       <string>30000</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="desviacionE_flujo">
      <property name="geometry">
@@ -77,6 +80,9 @@
      <property name="text">
       <string>3000</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
@@ -89,7 +95,7 @@
      </rect>
     </property>
     <property name="title">
-     <string>Inversion Inicial</string>
+     <string>Inversión Inicial</string>
     </property>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
@@ -129,6 +135,9 @@
      <property name="text">
       <string>100000</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="desviacionE_inv">
      <property name="geometry">
@@ -141,6 +150,9 @@
      </property>
      <property name="text">
       <string>5000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </widget>
@@ -186,7 +198,7 @@
      <string notr="true">background-color: rgb(0, 85, 255);</string>
     </property>
     <property name="text">
-     <string>CONCLUSION</string>
+     <string>CONCLUSIÓN</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -236,7 +248,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Años de evaluacion</string>
+      <string>Años de evaluación</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_7">
@@ -249,7 +261,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Numero de corridas</string>
+      <string>Número de corridas</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_anios">
@@ -342,7 +354,7 @@
      </rect>
     </property>
     <property name="title">
-     <string>Graficos</string>
+     <string>Gráficos</string>
     </property>
     <widget class="QPushButton" name="pushButton_histoTIR">
      <property name="geometry">
@@ -367,7 +379,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Normal: Inversion Inicial</string>
+      <string>Distribución Normal: Inversión Inicial</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_distNFlujoNeto">
@@ -380,7 +392,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Normal: Flujo Neto</string>
+      <string>Distribución Normal: Flujo Neto</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_distAcuTIR">
@@ -393,7 +405,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Acumulada TIR</string>
+      <string>Distribución Acumulada TIR</string>
      </property>
     </widget>
    </widget>
@@ -419,7 +431,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Tabla de simulacion</string>
+      <string>Tabla de simulación</string>
      </property>
     </widget>
    </widget>

@@ -39,7 +39,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Minimo</string>
+      <string>Mínimo</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -65,7 +65,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Maximo </string>
+      <string>Máximo </string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_min_inv">
@@ -130,7 +130,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Minimo</string>
+      <string>Mínimo</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_11">
@@ -156,7 +156,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Maximo </string>
+      <string>Máximo </string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_min_res">
@@ -221,7 +221,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Minimo</string>
+      <string>Mínimo</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_17">
@@ -247,7 +247,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Maximo </string>
+      <string>Máximo </string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_min_inf">
@@ -504,7 +504,7 @@
      </rect>
     </property>
     <property name="title">
-     <string>Graficos</string>
+     <string>Gráficos</string>
     </property>
     <widget class="QLabel" name="label_26">
      <property name="geometry">
@@ -542,7 +542,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Triangular: Inversión inicial</string>
+      <string>Distribución Triangular: Inversión inicial</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_res">
@@ -555,7 +555,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Triangular: Valor de rescate</string>
+      <string>Distribución Triangular: Valor de rescate</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_neto">
@@ -568,7 +568,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Uniforme: Flujo neto</string>
+      <string>Distribución Uniforme: Flujo neto</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_inf">
@@ -581,7 +581,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Distribucion Triangular: Inflación</string>
+      <string>Distribución Triangular: Inflación</string>
      </property>
     </widget>
    </widget>
@@ -607,7 +607,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Tabla de simulacion</string>
+      <string>Tabla de simulación</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_tabla2">
@@ -659,7 +659,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Numero de corridas</string>
+      <string>Número de corridas</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_tasadescuento">

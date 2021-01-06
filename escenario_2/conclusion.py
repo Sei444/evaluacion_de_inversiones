@@ -31,9 +31,17 @@ class Ui_Conclusion(object):
         self.pushButton_atras.setGeometry(QtCore.QRect(30, 20, 75, 23))
         self.pushButton_atras.setObjectName("pushButton_atras")
         self.pushButton_descargarReporte = QtWidgets.QPushButton(Dialog)
-        self.pushButton_descargarReporte.setGeometry(QtCore.QRect(330, 380, 111, 31))
+        self.pushButton_descargarReporte.setGeometry(QtCore.QRect(520, 380, 131, 31))
         self.pushButton_descargarReporte.setStyleSheet("background-color: rgb(0, 85, 255);")
         self.pushButton_descargarReporte.setObjectName("pushButton_descargarReporte")
+        self.pushButton_descargarGraficos = QtWidgets.QPushButton(Dialog)
+        self.pushButton_descargarGraficos.setGeometry(QtCore.QRect(130, 380, 111, 31))
+        self.pushButton_descargarGraficos.setStyleSheet("background-color: rgb(0, 85, 255);")
+        self.pushButton_descargarGraficos.setObjectName("pushButton_descargarGraficos")
+        self.pushButton_descargarTabla = QtWidgets.QPushButton(Dialog)
+        self.pushButton_descargarTabla.setGeometry(QtCore.QRect(340, 380, 111, 31))
+        self.pushButton_descargarTabla.setStyleSheet("background-color: rgb(0, 85, 255);")
+        self.pushButton_descargarTabla.setObjectName("pushButton_descargarTabla")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -41,9 +49,11 @@ class Ui_Conclusion(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Conclusion"))
-        self.label.setText(_translate("Dialog", "Conclusion de la evaluación"))
+        self.label.setText(_translate("Dialog", "Conclusión de la evaluación"))
         self.pushButton_atras.setText(_translate("Dialog", "Atras"))
-        self.pushButton_descargarReporte.setText(_translate("Dialog", "Descargar Reporte"))
+        self.pushButton_descargarReporte.setText(_translate("Dialog", "Descargar Informe Final"))
+        self.pushButton_descargarGraficos.setText(_translate("Dialog", "Descargar Gráficos"))
+        self.pushButton_descargarTabla.setText(_translate("Dialog", "Descargar Tabla"))
 
 
 if __name__ == "__main__":
