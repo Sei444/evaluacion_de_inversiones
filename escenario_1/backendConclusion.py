@@ -23,8 +23,10 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion_esc1 ):
         
     def click_graficos(self): 
         self.obj_reportes.reporteGraficosDescarga()
+        
     def click_tabla(self):
         self.obj_convertidor.tablaPdfDescarga()
+        
     def click_DescargarInformeFinal(self):
         print("Entro al boton")
         self.obj_reportes.crearCaratula()
@@ -33,7 +35,7 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion_esc1 ):
         self.obj_reportes.reporteGraficos(self.conclusion)
         print('paso graficos')
         self.obj_reportes.reporteFinal()
-        self.mostrar_popup()
+        
     
     def mostrar_popup(self):
         msg = QMessageBox()

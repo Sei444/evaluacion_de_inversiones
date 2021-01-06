@@ -28,47 +28,50 @@ class Reportes2(QWidget):
     def reporteGraficosDescarga(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-      
-        fileName, _ = QFileDialog.getSaveFileName(self,"Guardar Graficos..","ReporteGraficos.pdf","All Files (*);;Text Files (*.pdf)", options=options)
-       
-         # abrimos el pdf 
-        c = canvas.Canvas(fileName)
-        #Fuente y el tamaño = ?
-        c.setFont('Helvetica-Oblique', 50)
-        # Dibujamos texto: (X,Y,Texto)
-        c.drawString(225,450,"Graficos")
-        c.showPage()
-        c.setFont('Helvetica', 30)
-        # Dibujamos texto: (X,Y,Texto)
-        c.drawString(125,760,"Grafico del Histograma VPN")
-        # Dibujamos una imagen (IMAGEN, X,Y, WIDTH, HEIGH)
-        c.drawImage('./escenario_2/imagen1.jpg', 10, 175, 600, 500)
-        c.showPage()
-        #//
-        c.setFont('Helvetica', 30)
-        c.drawString(110,760,"Grafico de la Inversion Inicial")
-        c.drawImage('./escenario_2/imagen2.jpg', 10, 175, 600, 500)
-        c.showPage()
-        #//
-        c.setFont('Helvetica', 30)
-        c.drawString(125,760,"Grafico del Valor de Rescate")
-        c.drawImage('./escenario_2/imagen3.jpg', 10, 175, 600, 500)
-        c.showPage()
-        #//
-        c.setFont('Helvetica', 30)
-        c.drawString(150,760,"Grafico de la Inflacion")
-        c.drawImage('./escenario_2/imagen4.jpg', 10, 175, 600, 500)
-        c.showPage()
-        #//
-        c.setFont('Helvetica', 30)
-        c.drawString(160,760,"Grafico del Flujo Neto")
-        c.drawImage('./escenario_2/imagen5.jpg', 10, 175, 600, 500)
-        c.showPage()
-        #Conclusion
-        c.setFont('Helvetica-Oblique', 50)
-        c.drawString(200,450,"Conclusion")
-        c.showPage()
-        c.save()
+        try:
+            fileName, _ = QFileDialog.getSaveFileName(self,"Guardar Graficos..","ReporteGraficos.pdf","All Files (*);;Text Files (*.pdf)", options=options)
+        
+            # abrimos el pdf 
+            c = canvas.Canvas(fileName)
+            #Fuente y el tamaño = ?
+            c.setFont('Helvetica-Oblique', 50)
+            # Dibujamos texto: (X,Y,Texto)
+            c.drawString(225,450,"Graficos")
+            c.showPage()
+            c.setFont('Helvetica', 30)
+            # Dibujamos texto: (X,Y,Texto)
+            c.drawString(125,760,"Grafico del Histograma VPN")
+            # Dibujamos una imagen (IMAGEN, X,Y, WIDTH, HEIGH)
+            c.drawImage('./escenario_2/imagen1.jpg', 10, 175, 600, 500)
+            c.showPage()
+            #//
+            c.setFont('Helvetica', 30)
+            c.drawString(110,760,"Grafico de la Inversion Inicial")
+            c.drawImage('./escenario_2/imagen2.jpg', 10, 175, 600, 500)
+            c.showPage()
+            #//
+            c.setFont('Helvetica', 30)
+            c.drawString(125,760,"Grafico del Valor de Rescate")
+            c.drawImage('./escenario_2/imagen3.jpg', 10, 175, 600, 500)
+            c.showPage()
+            #//
+            c.setFont('Helvetica', 30)
+            c.drawString(150,760,"Grafico de la Inflacion")
+            c.drawImage('./escenario_2/imagen4.jpg', 10, 175, 600, 500)
+            c.showPage()
+            #//
+            c.setFont('Helvetica', 30)
+            c.drawString(160,760,"Grafico del Flujo Neto")
+            c.drawImage('./escenario_2/imagen5.jpg', 10, 175, 600, 500)
+            c.showPage()
+            #Conclusion
+            c.setFont('Helvetica-Oblique', 50)
+            c.drawString(200,450,"Conclusion")
+            c.showPage()
+            c.save()
+            self.mostrar_popup()
+        except Exception as e:
+            print("se cancelo ")
     def reporteGraficos(self,conclusion):
         # abrimos el pdf 
         c = canvas.Canvas("./escenario_2/Report/Reportes/"+'Reporte3.pdf')
@@ -118,15 +121,24 @@ class Reportes2(QWidget):
     def reporteFinal(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-      
-        fileName, _ = QFileDialog.getSaveFileName(self,"Guardar Reporte Final..","ReporteFinal.pdf","All Files (*);;Text Files (*.pdf)", options=options)
-      
-        loc = "./escenario_2/Report/Reportes/"
-        pdfs = [loc+archivo for archivo in os.listdir(loc) if archivo.endswith(".pdf")]
-        #nombre_archivo_salida = "ReporteFinal.pdf"
-        fusionador = PdfFileMerger()
-        for pdf in pdfs:
-            fusionador.append(open(pdf, 'rb'))
+        try:
+            fileName, _ = QFileDialog.getSaveFileName(self,"Guardar Reporte Final..","ReporteFinal.pdf","All Files (*);;Text Files (*.pdf)", options=options)
+        
+            loc = "./escenario_2/Report/Reportes/"
+            pdfs = [loc+archivo for archivo in os.listdir(loc) if archivo.endswith(".pdf")]
+            #nombre_archivo_salida = "ReporteFinal.pdf"
+            fusionador = PdfFileMerger()
+            for pdf in pdfs:
+                fusionador.append(open(pdf, 'rb'))
 
-        with open(fileName, 'wb') as salida:
-            fusionador.write(salida)
+            with open(fileName, 'wb') as salida:
+                fusionador.write(salida)
+            self.mostrar_popup()
+        except Exception as e:
+            print("se cancelo ")
+    def mostrar_popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Mensaje")
+        msg.setText("Se creo el reporte correctamente")
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
