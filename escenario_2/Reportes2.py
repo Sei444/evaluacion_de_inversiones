@@ -4,7 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from PyPDF2 import PdfFileMerger
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QFileDialog,QWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QFileDialog,QWidget,QMessageBox
 import os
 class Reportes2(QWidget):
     
