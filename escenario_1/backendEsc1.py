@@ -1,6 +1,9 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import matplotlib.patches as patches
+import matplotlib.patheffects as path_effects
 import pandas as pd
 import matplotlib
 import plotly.graph_objects as go
@@ -89,7 +92,7 @@ class Normal(Distribucion):
         return res
     def grafica_distnormal(self):
         x_1 = np.linspace(norm(self.media, self.desviacion_e).ppf(0.01),
-                  norm(self.media, self.desviacion_e).ppf(0.99), 10)
+                  norm(self.media, self.desviacion_e).ppf(0.99), 1000)
         FDP_normal = norm(self.media, self.desviacion_e).pdf(x_1) # FDP
         plt.plot(x_1, FDP_normal, label='FDP nomal')
         plt.title('Función de Densidad de Probabilidad')
@@ -129,6 +132,8 @@ class Inversion():
         return data
    
     def graficar_histrogramaTIR(self):
+        plt.figure() 
+        matplotlib.style.use('seaborn')
         #datos
         tabla.sort_values(by=['TIR'], inplace=True)
         tir_data = tabla['TIR']
@@ -136,10 +141,14 @@ class Inversion():
         fragmentos = np.around(np.linspace(array[0], array[-1], 21), 3 )
         bins = fragmentos.tolist()
         #grafico con solucion 1
+        t = ("This is a really long string that I'd rather have wrapped so that it "
+        "doesn't go outside of the figure, but if it's long enough it will go "
+        "off the top or bottom!")
         plt.hist(array, bins = bins, orientation='vertical')
         plt.title('Histograma TIR')
-        plt.xlabel('valores del TIR')
-        plt.ylabel('Total repeticiones')
+        plt.xlabel('valores del TIR\n \n' +  t)
+        plt.ylabel('Total repeticiones')  
+        plt.get_current_fig_manager().full_screen_toggle()      
         plt.show()
         
     def graficar_distAcumuladaTIR(self):

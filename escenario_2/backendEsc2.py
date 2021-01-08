@@ -91,7 +91,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         main.graficar_histrogramaVPN()
     def click_inversionInicial(self):
        try:
-            obj_inv.grafica_distTriangular()
+            obj_inv.grafica_distTriangular(0)
        except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -101,7 +101,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
 
     def click_valorRescate(self):
         try:
-            obj_res.grafica_distTriangular()
+            obj_res.grafica_distTriangular(8)
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -111,7 +111,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
         
     def click_tasaInflacion(self):
         try:
-            obj_inf.grafica_distTriangular_inf()
+            obj_inf.grafica_distTriangular_inf(7)
         except NameError:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -181,7 +181,7 @@ class Triangular(Distribucion):
         #INFLACION
         inflacion = 100 - (np.around(np.random.triangular(100 - self.minimo, 100 - self.esperado, 100 - self.maximo, 1), 0)) #Meter datos Estimacion pesimista - probable - optimista
         return inflacion
-    def grafica_distTriangular(self):
+    def grafica_distTriangular(self, column):
         plt.figure(1)
         fig, axs = subplots(2)
         matplotlib.style.use('seaborn')
@@ -199,33 +199,44 @@ class Triangular(Distribucion):
         # plt.grid()
         # plt.title('Gráfica: Distribución Triangular')
         axs[0].text(self.minimo, y[1]/3, 'La gráfica esta dada por una distribución triangular, mostrando \n los datos del histograma en la parte inferior la misma \figura genreada por los datos de dicha distribución \n'+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
-        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5})
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
 
         #grafico con solucion 1
-        flujo_data = dataCorridas.iloc[:,[0]]
+        flujo_data = dataCorridas.iloc[:,[column]]
         array = flujo_data.to_numpy()
         axs[1].hist(array, bins = 50, orientation='vertical')
         # axs[1].set_title('Histograma Flujo N')
         # axs[1].set_xlabel('valores del Flujo Neto')
         # axs[1].set_ylabel('Total repeticiones') 
         fig.show()
-    def grafica_distTriangular_inf(self):
-        matplotlib.style.use('seaborn') 
-        x = np.array([self.maximo, self.esperado ,self.minimo])
-        y = np.array([0, 2/(self.minimo - self.maximo) ,0])
+    def grafica_distTriangular_inf(self, column):
+        plt.figure(1)
+        fig, axs = subplots(2)
+        matplotlib.style.use('seaborn')
+        fig.suptitle('Distribución Triangular')
+        x = np.array([self.minimo, self.esperado ,self.maximo])
+        y = np.array([0, 2/(self.maximo - self.minimo) ,0])
         str_minimo = 'a = ' + str(x[0]) + ', ' + str(y[0])
         str_esperado = 'c = ' + str(x[1]) + ', ' + str(y[1])
         str_maximo = 'b = ' + str(x[2]) + ', ' + str(y[2])
-        plt.plot(x[0],y[0],'r.', ms = 15, label = str_minimo)
-        plt.plot(x[1],y[1],'b.', ms = 15, label = str_esperado)
-        plt.plot(x[2],y[2],'g.', ms = 15, label = str_maximo)
-        plt.legend(title = 'Distribución triangular')
-        plt.triplot(x,y)
-        plt.title('Gráfica: Distribución Triangular')
-        plt.grid()
-        plt.text(self.maximo, y[1]/2, 'La gráfica esta dada por una distribución triangular, siendo \nlos datos simulados en espacio parte del espacio generado \npor los puntos '+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
-        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}) 
-        plt.show()
+        axs[0].plot(x[0],y[0],'r.', ms = 15, label = str_minimo)
+        axs[0].plot(x[1],y[1],'b.', ms = 15, label = str_esperado)
+        axs[0].plot(x[2],y[2],'g.', ms = 15, label = str_maximo)
+        fig.legend(title = 'Distribución triangular')
+        axs[0].triplot(x,y)
+        # plt.grid()
+        # plt.title('Gráfica: Distribución Triangular')
+        axs[0].text(self.minimo, y[1]/3, 'La gráfica esta dada por una distribución triangular, mostrando \n los datos del histograma en la parte inferior la misma \figura genreada por los datos de dicha distribución \n'+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
+
+        #grafico con solucion 1
+        flujo_data = dataCorridas.iloc[:,[column]]
+        array = flujo_data.to_numpy()
+        axs[1].hist(array, bins = 50, orientation='vertical')
+        # axs[1].set_title('Histograma Flujo N')
+        # axs[1].set_xlabel('valores del Flujo Neto')
+        # axs[1].set_ylabel('Total repeticiones') 
+        fig.show()
     def evaluacion_tri(sef, min,esp,max):
         res = 'La gráfica esta dada por una distribución triangular, \nsiendo los datos simulados en espacio parte del espacio \ngenerado por los puntos' , min , esp, max
         return res
@@ -257,6 +268,8 @@ class Uniforme(Distribucion):
         plt.title('Histograma Flujo Neto')
         plt.xlabel('valores del Flujo Neto')
         plt.ylabel('Total repeticiones')
+        plt.text(0,0, 'La gráfica esta dada por una distribución triangular, mostrando \n los datos del histograma en la parte inferior la misma \figura genreada por los datos de dicha distribución \n'+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5})
         plt.show()
 class Inversion():
 
@@ -293,7 +306,7 @@ class Inversion():
         matplotlib.style.use('seaborn') 
         vpn_data = dataCorridas['VPN']
         np_vpn_data = vpn_data.to_numpy()
-        plt.hist(np_vpn_data, bins = 20, orientation='vertical')
+        plt.hist(np_vpn_data, bins = 50, orientation='vertical')
         plt.grid()
         plt.title('Gráfica: Histograma VPN')
         plt.xlabel('valores del VPN')
