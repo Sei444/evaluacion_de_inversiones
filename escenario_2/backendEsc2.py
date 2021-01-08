@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib
 import plotly.graph_objects as go
+from pylab import *
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit ,QTableView, QDialog, QMessageBox
 from PyQt5.QtCore import QAbstractTableModel, Qt
@@ -107,18 +108,18 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def click_inversionInicial(self):
        try:
             obj_inv.grafica_distTriangular_Inv()
-            plt.show()
-       except:
+            fig2.show()
+       except Exception as e:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
             msg.setText("No existen datos simulados de Inversion Inicial")
             msg.setIcon(QMessageBox.Critical)
             x = msg.exec_()
-
+            print("error",e)
     def click_valorRescate(self):
         try:
             obj_res.grafica_distTriangular_Res()
-            plt.show()
+            #plt.show()
         except:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -129,7 +130,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def click_tasaInflacion(self):
         try:
             obj_inf.grafica_distTriangular_Inf()
-            plt.show()
+            #plt.show()
         except:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -140,7 +141,7 @@ class  VentanaEscenario2(QtWidgets.QMainWindow, Ui_Escenario2 ):
     def click_flujoNeto(self):
         try:
             obj_flujos.grafica_distUniforme()
-            plt.show()
+            #plt.show()
         except:
             msg = QMessageBox()
             msg.setWindowTitle("Mensaje")
@@ -218,25 +219,100 @@ class Triangular(Distribucion):
         inflacion = 100 - (np.around(np.random.triangular(100 - self.minimo, 100 - self.esperado, 100 - self.maximo, 1), 0)) #Meter datos Estimacion pesimista - probable - optimista
         return inflacion
     def grafica_distTriangular_Inv(self):
+       
+        
+        global fig2
+        fig2, axs = subplots(2)
+        matplotlib.style.use('seaborn')
+        fig2.suptitle('Distribución Triangular')
         x = np.array([self.minimo, self.esperado ,self.maximo])
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
         plt.figure(2)
-        plt.triplot(x,y)
+        str_minimo = 'a = ' + str(x[0]) + ', ' + str(y[0])
+        str_esperado = 'c = ' + str(x[1]) + ', ' + str(y[1])
+        str_maximo = 'b = ' + str(x[2]) + ', ' + str(y[2])
+        axs[0].plot(x[0],y[0],'r.', ms = 15, label = str_minimo)
+        axs[0].plot(x[1],y[1],'b.', ms = 15, label = str_esperado)
+        axs[0].plot(x[2],y[2],'g.', ms = 15, label = str_maximo)
+        fig2.legend(title = 'Distribución triangular')
+        axs[0].triplot(x,y)
+        # plt.grid()
+        # plt.title('Gráfica: Distribución Triangular')
+        axs[0].text(self.minimo, y[1]/3, 'La gráfica esta dada por una distribución triangular, mostrando \n los datos del histograma en la parte inferior la misma \figura genreada por los datos de dicha distribución \n'+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
+
+        #grafico con solucion 1
+        flujo_data = dataCorridas.iloc[:,[0]]
+        array = flujo_data.to_numpy()
+        axs[1].hist(array, bins = 50, orientation='vertical')
+        # axs[1].set_title('Histograma Flujo N')
+        # axs[1].set_xlabel('valores del Flujo Neto')
+        # axs[1].set_ylabel('Total repeticiones') 
         
+        #fig2.show()
         print("mostrar grafica distri")
         plt.savefig("./escenario_2/imagen2.jpg")
+     
     def grafica_distTriangular_Res(self):
+        fig3 = plt.figure(3)
+        ax1 = fig3.add_subplot(211)
+        ax2 = fig3.add_subplot(212)
+        matplotlib.style.use('seaborn')
+        fig3.suptitle('Distribución Triangular')
         x = np.array([self.minimo, self.esperado ,self.maximo])
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
-        plt.figure(3)
-        plt.triplot(x,y)
+        str_minimo = 'a = ' + str(x[0]) + ', ' + str(y[0])
+        str_esperado = 'c = ' + str(x[1]) + ', ' + str(y[1])
+        str_maximo = 'b = ' + str(x[2]) + ', ' + str(y[2])
+        ax1.plot(x[0],y[0],'r.', ms = 15, label = str_minimo)
+        ax1.plot(x[1],y[1],'b.', ms = 15, label = str_esperado)
+        ax1.plot(x[2],y[2],'g.', ms = 15, label = str_maximo)
+        fig3.legend(title = 'Distribución triangular')
+        ax1.triplot(x,y)
+        # plt.grid()
+        # plt.title('Gráfica: Distribución Triangular')
+        plt.text(self.minimo, y[1]/3, 'La gráfica esta dada por una distribución triangular, mostrando \n los datos del histograma en la parte inferior la misma \figura genreada por los datos de dicha distribución \n'+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
+
+        #grafico con solucion 1
+        flujo_data = dataCorridas.iloc[:,[8]]
+        array = flujo_data.to_numpy()
+        ax2.hist(array, bins = 50, orientation='vertical')
+        # axs[1].set_title('Histograma Flujo N')
+        # axs[1].set_xlabel('valores del Flujo Neto')
+        # axs[1].set_ylabel('Total repeticiones') """
+        fig3.show()
         print("mostrar grafica distri")
         plt.savefig("./escenario_2/imagen3.jpg")
     def grafica_distTriangular_Inf(self):
+  
+        fig,axs = subplots(2)
+        matplotlib.style.use('seaborn')
+        fig.suptitle('Distribución Triangular')
         x = np.array([self.minimo, self.esperado ,self.maximo])
         y = np.array([0, 2/(self.maximo - self.minimo) ,0])
-        plt.figure(4)
-        plt.triplot(x,y)
+        str_minimo = 'a = ' + str(x[0]) + ', ' + str(y[0])
+        str_esperado = 'c = ' + str(x[1]) + ', ' + str(y[1])
+        str_maximo = 'b = ' + str(x[2]) + ', ' + str(y[2])
+        axs[0].plot(x[0],y[0],'r.', ms = 15, label = str_minimo)
+        axs[0].plot(x[1],y[1],'b.', ms = 15, label = str_esperado)
+        axs[0].plot(x[2],y[2],'g.', ms = 15, label = str_maximo)
+        fig.legend(title = 'Distribución triangular')
+        axs[0].triplot(x,y)
+        # plt.grid()
+        # plt.title('Gráfica: Distribución Triangular')
+        axs[0].text(self.minimo, y[1]/3, 'La gráfica esta dada por una distribución triangular, mostrando \n los datos del histograma en la parte inferior la misma \figura genreada por los datos de dicha distribución \n'+ str(str_minimo) +',  '+str(str_esperado) +',  '+ str(str_maximo),
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
+
+        #grafico con solucion 1
+        flujo_data = dataCorridas.iloc[:,[7]]
+        array = flujo_data.to_numpy()
+        axs[1].hist(array, bins = 50, orientation='vertical')
+        # axs[1].set_title('Histograma Flujo N')
+        # axs[1].set_xlabel('valores del Flujo Neto')
+        # axs[1].set_ylabel('Total repeticiones') 
+        fig = plt.figure(4)
+        fig.show()
         print("mostrar grafica distri")
         plt.savefig("./escenario_2/imagen4.jpg")
     
