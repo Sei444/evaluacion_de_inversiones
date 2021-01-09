@@ -154,27 +154,30 @@ class Normal(Distribucion):
     
     def grafica_distnormal_Inv(self):
         x_1 = np.linspace(norm(self.media, self.desviacion_e).ppf(0.01),
-                  norm(self.media, self.desviacion_e).ppf(0.99), 10)
+                  norm(self.media, self.desviacion_e).ppf(0.99), 1000)
         FDP_normal = norm(self.media, self.desviacion_e).pdf(x_1) # FDP
-        
+        print("FDP: " ,type(FDP_normal))
         plt.figure(4)
         plt.plot(x_1, FDP_normal, label='FDP nomal')
         plt.title('Función de Densidad de Probabilidad')
         plt.ylabel('probabilidad')
         plt.xlabel('valores')
+        plt.text(self.media, np.mean(FDP_normal.tolist()), 'La gráfica muestra el comportamiento de \n la distribución normal para la inversion inicial' ,
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
         print('show: graficas' , plt)
         plt.savefig("./escenario_1/imagen4.jpg")
     def grafica_distnormal_Flujo(self):
         normal = norm(self.media, self.desviacion_e)
         x = np.linspace(normal.ppf(0.01),
-                        normal.ppf(0.99), 100)
+                        normal.ppf(0.99), 1000)
         fp = normal.pdf(x) # Función de Probabilidad
         plt.figure(3)
         plt.plot(x, fp)
         plt.title('Distribución Normal')
         plt.ylabel('probabilidad')
         plt.xlabel('valores')
-        
+        plt.text(self.media,  np.mean(fp.tolist()), 'La gráfica muestra el comportamiento de \n la distribución normal para el flujo neto ' ,
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
         plt.savefig("./escenario_1/imagen3.jpg")
 class Inversion():
 
@@ -224,7 +227,9 @@ class Inversion():
         plt.title('Histograma TIR')
         plt.xlabel('valores del TIR')
         plt.ylabel('Total repeticiones')
-        
+        string_corridas= str(corridas)
+        plt.text(array[-1]-array[0]*2, (corridas/ 10), 'La gráfica muestra el comportamiento de TIR \n tras simular ' + string_corridas + ' veces ' ,
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
         plt.savefig("./escenario_1/imagen1.jpg")
     def graficar_distAcumuladaTIR(self):
         tabla.sort_values(by=['TIR'], inplace=True)
@@ -252,7 +257,9 @@ class Inversion():
         plt.title('Frecuencia acumulada TIR')
         plt.xlabel('valores del TIR')
         plt.ylabel('Frecuencia acumulada')
-     
+        string_corridas= str(corridas)
+        plt.text(array[-1]-array[0]*2, 0.5, 'La gráfica muestra el comportamiento de \nla distribución acumulada de la TIR \n tras simular  ' + string_corridas + ' veces ' ,
+        bbox={'facecolor': 'white', 'alpha': 2, 'pad': 5}, ha='center')
         plt.savefig("./escenario_1/imagen2.jpg")
 
     def probabilidad(self):
