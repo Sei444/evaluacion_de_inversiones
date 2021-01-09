@@ -36,13 +36,8 @@ class  VentanaConclusion(QtWidgets.QDialog, Ui_Conclusion ):
         self.obj_convertidor.tablaPdf()
         self.obj_reportes.reporteGraficos(self.conclusion2)
         self.obj_reportes.reporteFinal()
-        self.mostrar_popup()
-    def mostrar_popup(self):
-        msg = QMessageBox()
-        msg.setWindowTitle("Mensaje")
-        msg.setText("Se creo el reporte correctamente")
-        msg.setIcon(QMessageBox.Information)
-        x = msg.exec_()
+       
+    
     def mostrar_conclusion(self, conclusion,conclusion2):
         self.conclusion = conclusion
         self.conclusion2 = conclusion2

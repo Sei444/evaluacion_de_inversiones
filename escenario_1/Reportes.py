@@ -59,6 +59,7 @@ class Reportes(QWidget):
             c.drawImage('./escenario_1/imagen4.jpg', 10, 175, 600, 500)
             c.showPage()   
             c.save()
+            self.mostrar_popup()
         except Exception as e:
             print("se cancelo ")
 

@@ -1,7 +1,7 @@
 from win32com.client import Dispatch
 import win32api
 import os
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog , QMessageBox
 class Convertidor(QWidget):
     def __init__(self):
         super().__init__()

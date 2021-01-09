@@ -1,7 +1,7 @@
 from win32com.client import Dispatch
 import win32api
 import os
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog , QMessageBox
 class Convertidor2(QWidget):
 
     def  __init__(self):
@@ -42,9 +42,16 @@ class Convertidor2(QWidget):
         Workbook = app.Workbooks.Open(input_file)
         try:
             Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
+            self.mostrar_popup()
         except Exception as e:
             print("Failed to convert in PDF format.Please confirm environment meets all the requirements  and try again")
             print(str(e))
         finally:
             Workbook.Close()
             app.Quit()
+    def mostrar_popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Mensaje")
+        msg.setText("Se creo el reporte correctamente")
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
