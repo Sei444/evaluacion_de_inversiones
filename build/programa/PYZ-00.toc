@@ -667,9 +667,21 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\__init__.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging._compat',
+  ('pkg_resources._vendor.packaging.specifiers',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_compat.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\specifiers.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.packaging.utils',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\utils.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.packaging._structures',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_structures.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.packaging.__about__',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__about__.py',
    'PYMODULE'),
   ('pkg_resources._vendor.packaging',
    'd:\\umss\\semestre-final\\taller de '
@@ -815,37 +827,17 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\pythoncom.py',
    'PYMODULE'),
-  ('pkg_resources._vendor',
+  ('pkg_resources._vendor.packaging.requirements',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\__init__.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging.specifiers',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\specifiers.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging.__about__',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__about__.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\requirements.py',
    'PYMODULE'),
   ('pkg_resources._vendor.packaging.version',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\version.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging.utils',
+  ('pkg_resources._vendor.packaging.markers',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\utils.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging.requirements',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\requirements.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.six',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\six.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging._structures',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_structures.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\markers.py',
    'PYMODULE'),
   ('pkg_resources._vendor.pyparsing',
    'd:\\umss\\semestre-final\\taller de '
@@ -876,9 +868,17 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\win32\\lib\\netbios.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging.markers',
+  ('pkg_resources._vendor.packaging._compat',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\markers.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_compat.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.six',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\six.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\pkg_resources\\_vendor\\__init__.py',
    'PYMODULE'),
   ('pkg_resources.py31compat',
    'd:\\umss\\semestre-final\\taller de '
@@ -891,11 +891,11 @@
   ('imp',
    'C:\\Users\\paula\\AppData\\Local\\Programs\\Python\\Python38\\lib\\imp.py',
    'PYMODULE'),
-  ('stringprep',
-   'C:\\Users\\paula\\AppData\\Local\\Programs\\Python\\Python38\\lib\\stringprep.py',
-   'PYMODULE'),
   ('tracemalloc',
    'C:\\Users\\paula\\AppData\\Local\\Programs\\Python\\Python38\\lib\\tracemalloc.py',
+   'PYMODULE'),
+  ('stringprep',
+   'C:\\Users\\paula\\AppData\\Local\\Programs\\Python\\Python38\\lib\\stringprep.py',
    'PYMODULE'),
   ('_py_abc',
    'C:\\Users\\paula\\AppData\\Local\\Programs\\Python\\Python38\\lib\\_py_abc.py',
@@ -1179,149 +1179,13 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PIL\\Image.py',
    'PYMODULE'),
-  ('PIL.CurImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\CurImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.Jpeg2KImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\Jpeg2KImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.ImageFile',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImageFile.py',
-   'PYMODULE'),
-  ('PIL.WebPImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\WebPImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.GribStubImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\GribStubImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.FliImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FliImagePlugin.py',
-   'PYMODULE'),
   ('PIL.BufrStubImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PIL\\BufrStubImagePlugin.py',
    'PYMODULE'),
-  ('PIL.TgaImagePlugin',
+  ('PIL.ImageFile',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\TgaImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.IcoImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\IcoImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.FpxImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FpxImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.XpmImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\XpmImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.ImtImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImtImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.SpiderImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\SpiderImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.ImageTk',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImageTk.py',
-   'PYMODULE'),
-  ('PIL.SunImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\SunImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.BlpImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\BlpImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.MpoImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MpoImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.XbmImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\XbmImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.PalmImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PalmImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.DcxImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\DcxImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.McIdasImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\McIdasImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.MpegImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MpegImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.FtexImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FtexImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.EpsImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\EpsImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.PsdImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PsdImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.SgiImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\SgiImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.GbrImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\GbrImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.PcxImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PcxImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.Hdf5StubImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\Hdf5StubImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.XVThumbImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\XVThumbImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.WmfImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\WmfImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.IptcImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\IptcImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.PixarImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PixarImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.MicImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MicImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.IcnsImagePlugin',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\IcnsImagePlugin.py',
-   'PYMODULE'),
-  ('PIL.features',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\features.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImageFile.py',
    'PYMODULE'),
   ('PIL.PdfImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
@@ -1335,25 +1199,161 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImageSequence.py',
    'PYMODULE'),
-  ('PIL.MspImagePlugin',
+  ('PIL.ImtImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MspImagePlugin.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImtImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.GribStubImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\GribStubImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.WebPImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\WebPImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.CurImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\CurImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.PixarImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PixarImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.XpmImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\XpmImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.FtexImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FtexImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.BlpImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\BlpImagePlugin.py',
    'PYMODULE'),
   ('PIL.FitsStubImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FitsStubImagePlugin.py',
    'PYMODULE'),
+  ('PIL.PalmImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PalmImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.WmfImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\WmfImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.MicImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MicImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.DcxImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\DcxImagePlugin.py',
+   'PYMODULE'),
   ('PIL.DdsImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PIL\\DdsImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.Hdf5StubImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\Hdf5StubImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.SpiderImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\SpiderImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.ImageTk',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImageTk.py',
+   'PYMODULE'),
+  ('PIL.XbmImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\XbmImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.MpegImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MpegImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.SunImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\SunImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.MspImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MspImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.IcnsImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\IcnsImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.features',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\features.py',
+   'PYMODULE'),
+  ('PIL.PcxImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PcxImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.IptcImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\IptcImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.ImImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.FpxImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FpxImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.MpoImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\MpoImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.McIdasImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\McIdasImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.SgiImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\SgiImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.EpsImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\EpsImagePlugin.py',
    'PYMODULE'),
   ('PIL.PcdImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PcdImagePlugin.py',
    'PYMODULE'),
-  ('PIL.ImImagePlugin',
+  ('PIL.GbrImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\ImImagePlugin.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\GbrImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.Jpeg2KImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\Jpeg2KImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.IcoImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\IcoImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.FliImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\FliImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.TgaImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\TgaImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.PsdImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\PsdImagePlugin.py',
+   'PYMODULE'),
+  ('PIL.XVThumbImagePlugin',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\PIL\\XVThumbImagePlugin.py',
    'PYMODULE'),
   ('PIL.TiffImagePlugin',
    'd:\\umss\\semestre-final\\taller de '
@@ -2142,41 +2142,13 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\__init__.py',
    'PYMODULE'),
-  ('setuptools._vendor.packaging.__about__',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\__about__.py',
-   'PYMODULE'),
-  ('setuptools._vendor.packaging.version',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\version.py',
-   'PYMODULE'),
-  ('setuptools._vendor',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\__init__.py',
-   'PYMODULE'),
-  ('setuptools._vendor.six',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\six.py',
-   'PYMODULE'),
-  ('setuptools._vendor.packaging.markers',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\markers.py',
-   'PYMODULE'),
   ('setuptools._vendor.packaging.requirements',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\requirements.py',
    'PYMODULE'),
-  ('setuptools._vendor.packaging.utils',
+  ('setuptools._vendor.packaging.version',
    'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\utils.py',
-   'PYMODULE'),
-  ('setuptools._vendor.packaging._compat',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\_compat.py',
-   'PYMODULE'),
-  ('setuptools._vendor.pyparsing',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\pyparsing.py',
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\version.py',
    'PYMODULE'),
   ('setuptools._vendor.packaging.specifiers',
    'd:\\umss\\semestre-final\\taller de '
@@ -2186,9 +2158,37 @@
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\__init__.py',
    'PYMODULE'),
+  ('setuptools._vendor.six',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\six.py',
+   'PYMODULE'),
+  ('setuptools._vendor.packaging.utils',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\utils.py',
+   'PYMODULE'),
+  ('setuptools._vendor',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\__init__.py',
+   'PYMODULE'),
+  ('setuptools._vendor.packaging.markers',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\markers.py',
+   'PYMODULE'),
+  ('setuptools._vendor.pyparsing',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\pyparsing.py',
+   'PYMODULE'),
   ('setuptools._vendor.packaging._structures',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\_structures.py',
+   'PYMODULE'),
+  ('setuptools._vendor.packaging.__about__',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\__about__.py',
+   'PYMODULE'),
+  ('setuptools._vendor.packaging._compat',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\setuptools\\_vendor\\packaging\\_compat.py',
    'PYMODULE'),
   ('setuptools.msvc',
    'd:\\umss\\semestre-final\\taller de '
@@ -4011,6 +4011,14 @@
   ('PyQt5',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\PyQt5\\__init__.py',
+   'PYMODULE'),
+  ('pylab',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\pylab.py',
+   'PYMODULE'),
+  ('matplotlib.pylab',
+   'd:\\umss\\semestre-final\\taller de '
+   'simu\\software\\soft-env\\lib\\site-packages\\matplotlib\\pylab.py',
    'PYMODULE'),
   ('plotly.graph_objects',
    'd:\\umss\\semestre-final\\taller de '
@@ -9979,10 +9987,6 @@
   ('matplotlib',
    'd:\\umss\\semestre-final\\taller de '
    'simu\\software\\soft-env\\lib\\site-packages\\matplotlib\\__init__.py',
-   'PYMODULE'),
-  ('matplotlib.pylab',
-   'd:\\umss\\semestre-final\\taller de '
-   'simu\\software\\soft-env\\lib\\site-packages\\matplotlib\\pylab.py',
    'PYMODULE'),
   ('matplotlib.style.core',
    'd:\\umss\\semestre-final\\taller de '

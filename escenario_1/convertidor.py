@@ -31,11 +31,7 @@ class Convertidor(QWidget):
       
         fileName, _ = QFileDialog.getSaveFileName(self,"Guardar Tabla..","ReporteTabla.pdf","All Files (*);;Text Files (*.pdf)", options=options)
       
-        input_file = r'D:\UMSS\Semestre-Final\Taller de simu\Software\evaluacion_de_inversiones\escenario_1\export_dataframe.xlsx'
-        ruta = os.getcwd() + '\escenario_1\export_dataframe.xls'
-        print(input_file)
-        print(ruta)
-        #input_file = r'ruta'
+        input_file = os.getcwd() + '\escenario_1\export_dataframe.xlsx'
         #give your file name with valid path 
         output_file = fileName
         #give valid output file name and path

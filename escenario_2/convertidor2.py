@@ -8,10 +8,8 @@ class Convertidor2(QWidget):
         super().__init__()
 
     def tablaPdf(self):
-        #input_file = r'D:\UMSS\Semestre-Final\Taller de simu\Software\evaluacion_de_inversiones\escenario_2\export_dataframe.xlsx'
         #give your file name with valid path 
         input_file = os.getcwd() + '\escenario_2\export_dataframe.xlsx'
-        #output_file = r'D:\UMSS\Semestre-Final\Taller de simu\Software\evaluacion_de_inversiones\escenario_2\Report\Reportes\Reporte2.pdf'
         #give valid output file name and path
         output_file = os.getcwd() + '\escenario_2\Report\Reportes\Reporte2.pdf'
         app = Dispatch("Excel.Application")
